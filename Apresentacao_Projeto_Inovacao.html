@@ -146,6 +146,65 @@
         </div>
     </nav>
 
+     <section id="solucoes" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center">Etapas da Solução Inteligente</h2>
+            <div class="space-y-8">
+                <div class="flex flex-col md:flex-row gap-8 items-center bg-gray-50 p-8 rounded-3xl" data-aos="fade-left">
+                    <div class="bg-red-600 text-white p-4 rounded-2xl text-2xl">01</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-red-600">Geração de Casos e Descrição (Azure)</h3>
+                        <p class="text-gray-700">Botões nativos no Azure coletam dados do PBI e feature para a IA analisar requisitos e gerar descrições e testes. <strong>Eficiência: ~90% de redução no tempo de escrita.</strong></p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8 items-center bg-gray-50 p-8 rounded-3xl" data-aos="fade-right">
+                    <div class="bg-red-600 text-white p-4 rounded-2xl text-2xl">02</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-red-600">MOCK Inteligente</h3>
+                        <p class="text-gray-700">Geração instantânea de massa de dados JSON para APIs e importações via DevConsole. Garante conformidade com LGPD usando dados sintéticos válidos.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8 items-center bg-gray-50 p-8 rounded-3xl" data-aos="fade-left">
+                    <div class="bg-red-600 text-white p-4 rounded-2xl text-2xl">03</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-red-600">Documentação Automática</h3>
+                        <p class="text-gray-700">Sincronização em tempo real entre Notion, Swagger e Azure via APIs. Acaba com a fragmentação e a falta de confiabilidade nas informações técnicas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="release" class="py-24 px-6 bg-gray-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl font-bold mb-6">Entrega de Valor: <span class="text-red-500">Release Notes</span></h2>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Ao final de cada Sprint, a IA analisa os cards e gera comunicações personalizadas, segmentando o que é melhoria geral do que é regra específica por cliente.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-center">
+                            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic">!</div>
+                            <p class="text-sm">Redução de churn através da percepção de evolução constante.</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic">!</div>
+                            <p class="text-sm">Envio para fila de revisão humana para garantir tom de voz perfeito.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/5 p-8 rounded-3xl border border-white/10" data-aos="fade-left">
+                    <div class="text-center py-10">
+                        <i data-lucide="mail-check" class="w-16 h-16 text-red-500 mx-auto mb-4"></i>
+                        <h4 class="text-2xl font-bold mb-2">99% de Economia</h4>
+                        <p class="text-gray-500">De 4 horas de compilação manual para 2 minutos de geração automática.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 <section class="hero-gradient min-h-screen flex items-center justify-center px-6 pt-20">
         <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
             
@@ -157,12 +216,16 @@
                     Playwright com MCP: Uma solução revolucionária que automatiza testes com inteligência semântica e persistência compartilhada
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-start">
-                    <button class="button-primary px-8 py-3 rounded-lg font-medium">
+                    <a href="https://www.notion.so/pedroandrade-private/Projeto-de-Inova-o-333cfaefa95e80f0918de8f07d1580d1" 
+                    target="_blank" 
+                    class="inline-block px-8 py-3 rounded-lg font-medium border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition">
                         Explorar Projeto
-                    </button>
-                    <button class="px-8 py-3 rounded-lg font-medium border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition">
-                        Documentação
-                    </button>
+                    </a>
+                    <a href="https://playwright.dev/" 
+                    target="_blank" 
+                    class="inline-block px-8 py-3 rounded-lg font-medium border-2 border-[#45ba4b] text-[#45ba4b] hover:bg-[#45ba4b] hover:text-white transition">
+                        Documentação Playwright
+                    </a>
                 </div>
             </div>
 
@@ -250,17 +313,17 @@
             <div class="bg-white rounded-2xl border-2 border-red-600 p-8 md:p-12" data-aos="fade-up">
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="text-center">
-                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500">📥</div>
+                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500 opacity-60">📥</div>
                         <h3 class="font-bold text-lg mb-2">Input de Teste</h3>
                         <p class="text-sm text-black text-opacity-60">Passos detalhados ou prompts naturais</p>
                     </div>
                     <div class="text-center">
-                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500">⚙️</div>
+                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500 opacity-60">⚙️</div>
                         <h3 class="font-bold text-lg mb-2">Orquestração MCP</h3>
                         <p class="text-sm text-black text-opacity-60">Roteamento e planejamento inteligente</p>
                     </div>
                     <div class="text-center">
-                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500">🎭</div>
+                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500 opacity-60">🎭</div>
                         <h3 class="font-bold text-lg mb-2">Executor Playwright</h3>
                         <p class="text-sm text-black text-opacity-60">Automação E2E na interface de usuário</p>
                     </div>
@@ -432,67 +495,6 @@
                     Benefício Principal
                 </h3>
                 <p class="text-gray-700">Acesso offline centralizado. Todos os colaboradores podem consultar a base de conhecimento sem dependência de sincronização em tempo real.</p>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider max-w-6xl mx-auto"></div>
-
-        <section id="solucoes" class="py-24 px-6">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">Etapas da Solução Inteligente</h2>
-            <div class="space-y-8">
-                <div class="flex flex-col md:flex-row gap-8 items-center bg-gray-50 p-8 rounded-3xl" data-aos="fade-left">
-                    <div class="bg-red-600 text-white p-4 rounded-2xl text-2xl">01</div>
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-red-600">Geração de Casos e Descrição (Azure)</h3>
-                        <p class="text-gray-700">Botões nativos no Azure coletam dados do PBI e feature para a IA analisar requisitos e gerar descrições e testes. <strong>Eficiência: ~90% de redução no tempo de escrita.</strong></p>
-                    </div>
-                </div>
-                <div class="flex flex-col md:flex-row gap-8 items-center bg-gray-50 p-8 rounded-3xl" data-aos="fade-right">
-                    <div class="bg-red-600 text-white p-4 rounded-2xl text-2xl">02</div>
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-red-600">MOCK Inteligente</h3>
-                        <p class="text-gray-700">Geração instantânea de massa de dados JSON para APIs e importações via DevConsole. Garante conformidade com LGPD usando dados sintéticos válidos.</p>
-                    </div>
-                </div>
-                <div class="flex flex-col md:flex-row gap-8 items-center bg-gray-50 p-8 rounded-3xl" data-aos="fade-left">
-                    <div class="bg-red-600 text-white p-4 rounded-2xl text-2xl">03</div>
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-red-600">Documentação Automática</h3>
-                        <p class="text-gray-700">Sincronização em tempo real entre Notion, Swagger e Azure via APIs. Acaba com a fragmentação e a falta de confiabilidade nas informações técnicas.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="release" class="py-24 px-6 bg-gray-900 text-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div data-aos="fade-right">
-                    <h2 class="text-4xl font-bold mb-6">Entrega de Valor: <span class="text-red-500">Release Notes</span></h2>
-                    <p class="text-gray-400 mb-8 leading-relaxed">
-                        Ao final de cada Sprint, a IA analisa os cards e gera comunicações personalizadas, segmentando o que é melhoria geral do que é regra específica por cliente.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-center">
-                            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic">!</div>
-                            <p class="text-sm">Redução de churn através da percepção de evolução constante.</p>
-                        </div>
-                        <div class="flex gap-4 items-center">
-                            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic">!</div>
-                            <p class="text-sm">Envio para fila de revisão humana para garantir tom de voz perfeito.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white/5 p-8 rounded-3xl border border-white/10" data-aos="fade-left">
-                    <div class="text-center py-10">
-                        <i data-lucide="mail-check" class="w-16 h-16 text-red-500 mx-auto mb-4"></i>
-                        <h4 class="text-2xl font-bold mb-2">99% de Economia</h4>
-                        <p class="text-gray-500">De 4 horas de compilação manual para 2 minutos de geração automática.</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
