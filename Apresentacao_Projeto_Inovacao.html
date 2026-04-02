@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitetura de Testes Inteligentes - Projeto de Inovação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        body {
+            scroll-behavior: smooth;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #dc2626, transparent);
+            opacity: 0.3;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+        
+        .accent-underline {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .accent-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #dc2626;
+        }
+        
+        .button-primary {
+            background: #dc2626;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .button-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #991b1b;
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .button-primary:hover::before {
+            left: 0;
+        }
+        
+        .button-primary:hover {
+            color: #fff;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #dc2626, transparent);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 6px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #dc2626;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 3px #000;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+            font-size: 28px;
+        }
+        
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-black font-sans">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-2 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 flex items-center justify-center">
+                    <img src="https://i.imgur.com/p8K2nkl.png" alt="Logo TestIA" class="w-full h-full object-contain">
+                </div>
+                <h1 class="text-xl font-bold text-red-600">QA Inteligente & Release Notes</h1>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm">
+                <a href="#objetivo" class="text-black font-bold hover:text-red-600 transition">Objetivo</a>
+                <a href="#arquitetura" class="text-black font-bold hover:text-red-600 transition">Arquitetura</a>
+                <a href="#cenarios" class="text-black  font-bold hover:text-red-600 transition">Cenários</a>
+                <a href="#roi" class="text-black font-bold hover:text-red-600 transition">ROI</a>
+            </div>
+        </div>
+    </nav>
+
+<section class="hero-gradient min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
+            
+            <div class="text-left">
+                <h1 class="text-5xl md:text-5xl font-bold mb-6 leading-tight">
+                    Arquitetura de <span class="text-red-600">Testes Inteligentes</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed">
+                    Playwright com MCP: Uma solução revolucionária que automatiza testes com inteligência semântica e persistência compartilhada
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-start">
+                    <button class="button-primary px-8 py-3 rounded-lg font-medium">
+                        Explorar Projeto
+                    </button>
+                    <button class="px-8 py-3 rounded-lg font-medium border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition">
+                        Documentação
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative group">
+                <div class="absolute -inset-1"></div>
+                
+                <img src="https://cdn.gamma.app/xcbq7murwpjbdcp/92264cf69b0441368c216a562b17a405/optimized/post-1746721784503-543954741.avif" alt="Ilustração Arquitetura" class="relative rounded-2xl shadow-2xl w-full h-auto object-cover transform transition duration-500 hover:scale-[1.02]">
+            </div>
+
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+    <section id="objetivo" class="py-20 md:py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        O Desafio
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Sistemas legados como GeneXus 9 carecem de testes nativos robustos. A falta de automação inteligente resulta em:
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex gap-3 items-start">
+                            <span class="text-red-600 font-bold">→</span>
+                            <span class="text-gray-700">Testes manuais lentos e propensos a erros</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="text-red-600 font-bold">→</span>
+                            <span class="text-gray-700">Conhecimento fragmentado entre QAs</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="text-red-600 font-bold">→</span>
+                            <span class="text-gray-700">Baixa cobertura de testes de regressão</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="text-red-600 font-bold">→</span>
+                            <span class="text-gray-700">Releases lentos e documentação desatualizada</span>
+                        </li>
+                    </ul>
+                </div>
+                <div data-aos="fade-left">
+                    <div class="bg-white rounded-3xl p-12 border-2 border-red-600 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">A Solução</h3>
+                        <div class="space-y-4">
+                            <div class="flex gap-3">
+                                <div class="feature-icon">🎯</div>
+                                <div>
+                                    <h4 class="font-bold text-red-600 mb-1">Dois Níveis de Operação</h4>
+                                    <p class="text-sm text-gray-600">Determinístico para fluxos críticos, Semântico para escalabilidade</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="feature-icon">🧠</div>
+                                <div>
+                                    <h4 class="font-bold text-red-600 mb-1">IA Inteligente</h4>
+                                    <p class="text-sm text-gray-600">Interpretação de intenções naturais em ações automatizadas</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="feature-icon">💾</div>
+                                <div>
+                                    <h4 class="font-bold text-red-600 mb-1">Persistência Compartilhada</h4>
+                                    <p class="text-sm text-gray-600">Conhecimento centralizado em volume Drive mapeado</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- Arquitetura Section -->
+    <section id="arquitetura" class="py-20 md:py-32 px-6 bg-gray-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-black">Visão Geral da Arquitetura</h2>
+                <p class="text-lg text-black">Fluxo inteligente de orquestração entre intenção e ação</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border-2 border-red-600 p-8 md:p-12" data-aos="fade-up">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500">📥</div>
+                        <h3 class="font-bold text-lg mb-2">Input de Teste</h3>
+                        <p class="text-sm text-black text-opacity-60">Passos detalhados ou prompts naturais</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500">⚙️</div>
+                        <h3 class="font-bold text-lg mb-2">Orquestração MCP</h3>
+                        <p class="text-sm text-black text-opacity-60">Roteamento e planejamento inteligente</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500">🎭</div>
+                        <h3 class="font-bold text-lg mb-2">Executor Playwright</h3>
+                        <p class="text-sm text-black text-opacity-60">Automação E2E na interface de usuário</p>
+                    </div>
+                </div>
+                <div class="my-8 h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-60"></div>
+                <div class="text-center">
+                    <p class="text-black">Resultado: Validação, Persistência em JSON e Aprendizado Contínuo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- Cenários Section -->
+    <section id="cenarios" class="py-20 md:py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">Dois Cenários de Operação</h2>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Cenário 1 -->
+                <div class="card-hover bg-white rounded-2xl border-2 border-red-600 p-8 md:p-10" data-aos="fade-up">
+                    <div class="mb-6">
+                        <span class="text-4xl mb-4 inline-block">🔧</span>
+                        <h3 class="text-2xl font-bold">Teste Determinístico</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">Execução precisa de scripts predefinidos com previsibilidade total, garantindo velocidade e confiabilidade.</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div>
+                            <h4 class="font-bold text-sm text-red-600 mb-1">CARACTERÍSTICAS</h4>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li>> Previsibilidade garantida</li>
+                                <li>> Ideal para regressão e regras críticas</li>
+                                <li>> Input estruturado em JSON</li>
+                                <li>> Seletores resilientes</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-red-200">
+                        <p class="text-xs text-gray-500">Recomendado para: Fluxos críticos de negócio</p>
+                    </div>
+                </div>
+
+                <!-- Cenário 2 -->
+                <div class="card-hover bg-white rounded-2xl border-2 border-red-600 border-opacity-70 p-8 md:p-10 bg-red-50" data-aos="fade-up">
+                    <div class="mb-6">
+                        <span class="text-4xl mb-4 inline-block">🤖</span>
+                        <h3 class="text-2xl font-bold">Teste Semântico (IA)</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">Planejamento automático baseado em intenção natural com adaptabilidade.</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div>
+                            <h4 class="font-bold text-sm text-red-600 mb-1">CARACTERÍSTICAS</h4>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li>> Baseado em linguagem natural</li>
+                                <li>> Consulta histórico no Drive</li>
+                                <li>> Aprende caminhos alternativos</li>
+                                <li>> Escalável e adaptável</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-red-200">
+                        <p class="text-xs text-gray-500">Recomendado para: Cenários complexos e novos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- Fluxo Híbrido Section -->
+    <section class="py-20 md:py-32 px-6 bg-gray-100">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 text-center">Fluxo Híbrido e Tomada de Decisão</h2>
+            <p class="text-center text-gray-800 mb-12">Inteligência que prioriza segurança mas utiliza IA para escala</p>
+
+            <div class="space-y-6">
+                <div class="" data-aos="fade-right">
+                    <div class="bg-white rounded-xl p-6 border-2 border-red-600 border-opacity-50 bg-red-50">
+                        <div class="text-red-600 mb-4">
+                            <i data-lucide="shield-check" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2 text-black">Confiança Alta</h3>
+                        <p class="text-gray-800 text-sm">Executa o plano gerado pela IA baseado no histórico do Drive</p>
+                    </div>
+                </div>
+
+                <div class="" data-aos="fade-right" data-aos-delay="100">
+                    <div class="bg-white rounded-xl p-6 border-2 border-red-600 border-opacity-50 bg-red-50">
+                        <div class="text-red-600 mb-4">
+                            <i data-lucide="zap" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2 text-black">Contexto Novo ou Erro</h3>
+                        <p class="text-gray-800 text-sm">Realiza fallback automático para o fluxo determinístico</p>
+                    </div>
+                </div>
+
+                <div class="" data-aos="fade-right" data-aos-delay="200">
+                    <div class="bg-white rounded-xl p-6 border-2 border-red-600 border-opacity-50 bg-red-50">
+                        <div class="text-red-600 mb-4">
+                            <i data-lucide="database" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2 text-black">Persistência e Aprendizado</h3>
+                        <p class="text-gray-800 text-sm">Todo resultado alimenta a base de conhecimento no volume compartilhado</p>
+                    </div>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- Persistência Section -->
+    <section class="py-20 md:py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 text-center">Modelo de Persistência</h2>
+            <p class="text-center text-gray-600 mb-16">Volume Compartilhado: Estrutura centralizada de conhecimento</p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8" data-aos="zoom-in">
+                <div class="bg-white rounded-2xl border-2 border-red-600 p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="text-3xl">📝</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Execução & Logs</h3>
+                            <p class="text-sm text-gray-600">arquivos JSON com status, tempo e versão</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border-2 border-red-600 p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="text-3xl">🧠</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Base de Conhecimento</h3>
+                            <p class="text-sm text-gray-600">Mapeamento de seletores e histórico de sucesso</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border-2 border-red-600 p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="text-3xl">📊</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Aprendizado ML</h3>
+                            <p class="text-sm text-gray-600">Correlação entre prompts e planos de sucesso</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border-2 border-red-600 p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="text-3xl">📸</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Evidências</h3>
+                            <p class="text-sm text-gray-600">Screenshots e logs para Release Notes automáticos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border-2 border-red-600 border-opacity-50 rounded-2xl p-8 md:p-10">
+                <h3 class="font-bold text-red-600 mb-4 flex items-center gap-2">
+                    <span>💡</span>
+                    Benefício Principal
+                </h3>
+                <p class="text-gray-700">Acesso offline centralizado. Todos os colaboradores podem consultar a base de conhecimento sem dependência de sincronização em tempo real.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+        <section id="solucoes" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center">Etapas da Solução Inteligente</h2>
+            <div class="space-y-8">
+                <div class="flex flex-col md:flex-row gap-8 items-center bg-gray-50 p-8 rounded-3xl" data-aos="fade-left">
+                    <div class="bg-red-600 text-white p-4 rounded-2xl text-2xl">01</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-red-600">Geração de Casos e Descrição (Azure)</h3>
+                        <p class="text-gray-700">Botões nativos no Azure coletam dados do PBI e feature para a IA analisar requisitos e gerar descrições e testes. <strong>Eficiência: ~90% de redução no tempo de escrita.</strong></p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8 items-center bg-gray-50 p-8 rounded-3xl" data-aos="fade-right">
+                    <div class="bg-red-600 text-white p-4 rounded-2xl text-2xl">02</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-red-600">MOCK Inteligente</h3>
+                        <p class="text-gray-700">Geração instantânea de massa de dados JSON para APIs e importações via DevConsole. Garante conformidade com LGPD usando dados sintéticos válidos.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8 items-center bg-gray-50 p-8 rounded-3xl" data-aos="fade-left">
+                    <div class="bg-red-600 text-white p-4 rounded-2xl text-2xl">03</div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-red-600">Documentação Automática</h3>
+                        <p class="text-gray-700">Sincronização em tempo real entre Notion, Swagger e Azure via APIs. Acaba com a fragmentação e a falta de confiabilidade nas informações técnicas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="release" class="py-24 px-6 bg-gray-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl font-bold mb-6">Entrega de Valor: <span class="text-red-500">Release Notes</span></h2>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Ao final de cada Sprint, a IA analisa os cards e gera comunicações personalizadas, segmentando o que é melhoria geral do que é regra específica por cliente.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-center">
+                            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic">!</div>
+                            <p class="text-sm">Redução de churn através da percepção de evolução constante.</p>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic">!</div>
+                            <p class="text-sm">Envio para fila de revisão humana para garantir tom de voz perfeito.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/5 p-8 rounded-3xl border border-white/10" data-aos="fade-left">
+                    <div class="text-center py-10">
+                        <i data-lucide="mail-check" class="w-16 h-16 text-red-500 mx-auto mb-4"></i>
+                        <h4 class="text-2xl font-bold mb-2">99% de Economia</h4>
+                        <p class="text-gray-500">De 4 horas de compilação manual para 2 minutos de geração automática.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <!-- ROI Section -->
+        <section id="roi" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-4 text-center">ROI Estimado</h2>
+            <div class="text-center">
+                <svg class="inline-block text-red-600" stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true" class="text-red-600" height="64" width="64" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" height="64" width="64">...</svg>
+            </div>
+            <p class="text-center text-gray-600 mb-16 italic">Retorno sobre investimento projetado entre 3 a 6 meses.</p>
+            <div class="overflow-hidden rounded-2xl border border-gray-100 shadow-xl">
+                <table class="w-full text-left">
+                    <thead class="bg-red-600 text-white">
+                        <tr>
+                            <th class="p-6">Funcionalidade</th>
+                            <th class="p-6 text-center">ROI em Tempo</th>
+                            <th class="p-6">Impacto de Negócio</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-200 transition">
+                            <td class="p-6 font-bold">Geração de Testes</td>
+                            <td class="p-6 text-center text-red-600 font-bold">87%</td>
+                            <td class="p-6 text-sm text-gray-600">QA foca em estratégia, não em escrita.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-200 transition">
+                            <td class="p-6 font-bold">MOCK Inteligente</td>
+                            <td class="p-6 text-center text-red-600 font-bold">99%</td>
+                            <td class="p-6 text-sm text-gray-600">Massa de dados sintética em 30 segundos.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-200 transition">
+                            <td class="p-6 font-bold">Testes E2E (Playwright)</td>
+                            <td class="p-6 text-center text-red-600 font-bold">> 95%</td>
+                            <td class="p-6 text-sm text-gray-600">Risco zero de regressão em fluxos críticos.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-200 transition">
+                            <td class="p-6 font-bold">Release Notes</td>
+                            <td class="p-6 text-center text-red-600 font-bold">99%</td>
+                            <td class="p-6 text-sm text-gray-600">Suporte recebe menos chamados repetitivos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-50 py-16 px-6 border-t border-gray-200">
+        <div class="max-w-6xl mx-auto text-center">
+            <img src="https://i.imgur.com/vE1EuBo.png" class="w-20 h-20 mx-auto mb-6 opacity-80">
+            <p class="font-bold text-gray-400 uppercase tracking-widest text-xs">QA Inteligente & Release Notes - 2026 - Siscobra Sistemas</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Smooth scroll behavior for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        const nav = document.querySelector('nav');
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            if (scroll > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+            lastScroll = scroll;
+        });
+    </script>
+</body>
+</html>
