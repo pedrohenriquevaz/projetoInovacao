@@ -330,24 +330,24 @@
             <div class="bg-white rounded-2xl border-2 border-red-600 p-8 md:p-12" data-aos="fade-up">
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="text-center">
-                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500 opacity-60">📥</div>
+                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-200">📥</div>
                         <h3 class="font-bold text-lg mb-2">Input de Teste</h3>
                         <p class="text-sm text-black text-opacity-60">Passos detalhados ou prompts naturais</p>
                     </div>
                     <div class="text-center">
-                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500 opacity-60">⚙️</div>
+                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-200">⚙️</div>
                         <h3 class="font-bold text-lg mb-2">Orquestração MCP</h3>
                         <p class="text-sm text-black text-opacity-60">Roteamento e planejamento inteligente</p>
                     </div>
                     <div class="text-center">
-                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-500 opacity-60">🎭</div>
+                        <div class="feature-icon w-16 h-16 mx-auto mb-4 text-xl bg-red-200">🎭</div>
                         <h3 class="font-bold text-lg mb-2">Executor Playwright</h3>
                         <p class="text-sm text-black text-opacity-60">Automação E2E na interface de usuário</p>
                     </div>
                 </div>
                 <div class="my-8 h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-60"></div>
                 <div class="text-center">
-                    <p class="text-black">Resultado: Validação, Persistência em JSON e Aprendizado Contínuo</p>
+                    <p class="text-black">Resultado: Validação, Persistência em arquivos e Aprendizado contínuo</p>
                 </div>
             </div>
         </div>
@@ -518,8 +518,50 @@
 
     <div class="section-divider max-w-6xl mx-auto"></div>
 
+    <!-- Diagrama  Section -->
+        <section id="diagrama" class="py-24 px-6 bg-gray-100">
+            <div class="max-w-13xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">Fluxos do processo</h2>
+
+                <div class="mermaid bg-white p-7 rounded-4xl shadow-xl overflow-x-auto">
+        flowchart LR
+            B("Descrição base de negócio da Feature") --> n1["Geração da Descrição do PBI por IA"]
+            n1 -.- n2["IA realiza a leitura da Descrição da Feature e cria os Critérios de Aceitação"]
+            n1 --> n5["Usuário revisa os dados"]
+            n6((START)) --> B
+            n5 --> n7["Etapa de Desenvolvimento"]
+            n7 --> n8["Geração dos Casos de Teste por IA"]
+            n8 -.- n9["IA cria os Case Tests"]
+            n8 --> n10["Atualização da Documentação"]
+            n10 --> n11((END))
+
+            style B stroke:#000,fill:#BBDEFB
+            style n1 stroke:#000,fill:#BBDEFB
+            style n2 fill:#FFF9C4
+            style n5 stroke:#000,fill:#BBDEFB
+            style n6 stroke:#00C853,fill:#00C853,color:#fff
+            style n7 stroke:#000,fill:#BBDEFB
+            style n8 stroke:#000,fill:#BBDEFB
+            style n9 fill:#FFF9C4
+            style n10 stroke:#000,fill:#BBDEFB
+            style n11 stroke:#D50000,fill:#D50000,color:#fff
+                </div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+            <script>
+                mermaid.initialize({ 
+                    startOnLoad: true,
+                    theme: 'neutral',
+                    securityLevel: 'loose'
+                });
+            </script>
+        </section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
     <!-- ROI Section -->
-        <section id="roi" class="py-24 px-6">
+        <section id="roi" class="py-24 px-6 bg-white">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-4xl font-bold mb-4 text-center">ROI Estimado</h2>
             <div class="text-center">
