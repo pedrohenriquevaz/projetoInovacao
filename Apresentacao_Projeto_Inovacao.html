@@ -138,6 +138,7 @@
                 <h1 class="text-xl font-bold text-red-600">QA Inteligente & Release Notes</h1>
             </div>
             <div class="hidden md:flex items-center gap-8 text-sm">
+                <a href="#solucoes" class="text-black font-bold hover:text-red-600 transition">Soluções</a>
                 <a href="#objetivo" class="text-black font-bold hover:text-red-600 transition">Objetivo</a>
                 <a href="#arquitetura" class="text-black font-bold hover:text-red-600 transition">Arquitetura</a>
                 <a href="#cenarios" class="text-black  font-bold hover:text-red-600 transition">Cenários</a>
@@ -145,6 +146,69 @@
             </div>
         </div>
     </nav>
+
+    <section id="motivacao" class="py-24 px-6 bg-gray-100 overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+            
+            <div class="lg:w-1/2" data-aos="fade-right">
+                <h2 class="text-sm font-bold text-[#45ba4b] uppercase tracking-widest mb-4">Por que agir agora?</h2>
+                <h3 class="text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                    Não precisamos reescrever o legado para <span class="text-[#45ba4b]">parar de perder dinheiro.</span>
+                </h3>
+                
+                <div class="space-y-6 text-lg text-gray-700">
+                    <p>
+                        Hoje, o <span class="font-semibold">GeneXus 9</span> impõe limites que resultam em multas contratuais e um ciclo infinito de refação em testes manuais. Reescrever o sistema seria inviável, mas ignorar o custo das falhas é perigoso.
+                    </p>
+                    
+                    <p class="border-l-4 border-[#45ba4b] pl-6 italic bg-gray-50 py-4 rounded-r-2xl">
+                        "Nossa proposta é encapsular o legado com uma camada de inteligência externa."
+                    </p>
+                    
+                    <p>
+                        O Playwright testa externamente, a IA corrige os fluxos e automatiza a burocracia. Com isso, geramos um impacto significativo ao fim das regressões, das multas e geramos entregas com evidências visuais automáticas para o cliente.
+                    </p>
+                </div>
+
+                <div class="mt-10">
+                    <a href="#solucoes" class="inline-block px-8 py-4 bg-[#45ba4b] text-white font-bold rounded-xl shadow-lg hover:bg-[#36913b] transition-all transform hover:-translate-y-1">
+                        Ver Fluxo de Automação
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:w-1/2 relative" data-aos="fade-left">
+                <div class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-red-500 mb-6 transform -rotate-2 hover:rotate-0 transition duration-300">
+                    <div class="flex items-center gap-4 mb-2">
+                        <span class="text-2xl">⚠️</span>
+                        <h4 class="font-bold text-gray-800">Cenário Atual</h4>
+                    </div>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Multas contratuais por bugs em produção.</li>
+                        <li>• Testes manuais lentos e repetitivos.</li>
+                        <li>• Limitação técnica do legado (GX9).</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-[#45ba4b] ml-8 transform rotate-2 hover:rotate-0 transition duration-300">
+                    <div class="flex items-center gap-4 mb-2">
+                        <span class="text-2xl">🚀</span>
+                        <h4 class="font-bold text-gray-800">Com a Camada de IA</h4>
+                    </div>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Regressão 100% automatizada.</li>
+                        <li>• Notas de atualização com evidências visuais.</li>
+                        <li>• Fim das multas e aumento da confiança.</li>
+                    </ul>
+                </div>
+
+                <div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#45ba4b] opacity-10 blur-3xl rounded-full"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 <section id="solucoes" class="py-24 px-6">
     <div class="max-w-6xl mx-auto">
@@ -320,11 +384,11 @@
     <div class="section-divider max-w-6xl mx-auto"></div>
 
     <!-- Arquitetura Section -->
-    <section id="arquitetura" class="py-20 md:py-32 px-6 bg-gray-100">
+    <section id="arquitetura" class="py-20 md:py-32 px-6 bg-gray-900">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-black">Visão Geral da Arquitetura</h2>
-                <p class="text-lg text-black">Fluxo inteligente de orquestração entre intenção e ação</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Visão Geral da <span class="text-red-500">Arquitetura</span></h2>
+                <p class="text-lg text-white">Fluxo inteligente de orquestração entre intenção e ação</p>
             </div>
 
             <div class="bg-white rounded-2xl border-2 border-red-600 p-8 md:p-12" data-aos="fade-up">
@@ -519,44 +583,152 @@
     <div class="section-divider max-w-6xl mx-auto"></div>
 
     <!-- Diagrama  Section -->
-        <section id="diagrama" class="py-24 px-6 bg-gray-100">
-            <div class="max-w-13xl mx-auto text-center">
-                <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">Fluxos do processo</h2>
+<section id="diagrama" class="py-24 px-6 bg-gray-100 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-20 text-center text-gray-900 tracking-tight">
+            Fluxo Inteligente do Processo
+        </h2>
 
-                <div class="mermaid bg-white p-7 rounded-4xl shadow-xl overflow-x-auto">
-        flowchart LR
-            B("Descrição base de negócio da Feature") --> n1["Geração da Descrição do PBI por IA"]
-            n1 -.- n2["IA realiza a leitura da Descrição da Feature e cria os Critérios de Aceitação"]
-            n1 --> n5["Usuário revisa os dados"]
-            n6((START)) --> B
-            n5 --> n7["Etapa de Desenvolvimento"]
-            n7 --> n8["Geração dos Casos de Teste por IA"]
-            n8 -.- n9["IA cria os Case Tests"]
-            n8 --> n10["Atualização da Documentação"]
-            n10 --> n11((END))
+        <div class="relative">
+            <div class="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-[#45ba4b] via-blue-400 to-red-500 transform -translate-y-1/2 opacity-20"></div>
 
-            style B stroke:#000,fill:#BBDEFB
-            style n1 stroke:#000,fill:#BBDEFB
-            style n2 fill:#FFF9C4
-            style n5 stroke:#000,fill:#BBDEFB
-            style n6 stroke:#00C853,fill:#00C853,color:#fff
-            style n7 stroke:#000,fill:#BBDEFB
-            style n8 stroke:#000,fill:#BBDEFB
-            style n9 fill:#FFF9C4
-            style n10 stroke:#000,fill:#BBDEFB
-            style n11 stroke:#D50000,fill:#D50000,color:#fff
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 relative z-10">
+                
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-[#45ba4b] h-full transform hover:-translate-y-2">
+                        <div class="w-12 h-12 bg-green-100 text-[#45ba4b] rounded-2xl flex items-center justify-center mb-4 font-bold text-xl group-hover:scale-110 transition-transform">01</div>
+                        <h3 class="font-bold text-gray-800 mb-2 italic">Entrada de Dados</h3>
+                        <p class="text-sm text-gray-600">Descrição base de negócio da Feature vinda do Azure.</p>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-blue-50 p-6 rounded-3xl shadow-lg border-2 border-dashed border-blue-300 h-full relative overflow-hidden">
+                        <span class="absolute top-4 right-4 bg-blue-500 text-white text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-widest animate-pulse">AI Agent</span>
+                        <div class="w-12 h-12 bg-blue-500 text-white rounded-2xl flex items-center justify-center mb-4 shadow-lg"><i class="fas fa-robot"></i> 🤖</div>
+                        <h3 class="font-bold text-blue-900 mb-2">Geração de PBI</h3>
+                        <p class="text-sm text-blue-800/80">IA cria Critérios de Aceitação baseados na Feature automaticamente.</p>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-[#45ba4b] h-full transform hover:-translate-y-2">
+                        <div class="w-12 h-12 bg-gray-100 text-gray-600 rounded-2xl flex items-center justify-center mb-4"><i class="fas fa-user-check"></i> 👤</div>
+                        <h3 class="font-bold text-gray-800 mb-2">Review Humano</h3>
+                        <p class="text-sm text-gray-600">Usuário valida, ajusta e confirma os dados gerados pela IA.</p>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-blue-50 p-6 rounded-3xl shadow-lg border-2 border-dashed border-blue-300 h-full relative overflow-hidden">
+                        <span class="absolute top-4 right-4 bg-blue-500 text-white text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-widest animate-pulse">AI Agent</span>
+                        <div class="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-4 shadow-lg">⚡</div>
+                        <h3 class="font-bold text-blue-900 mb-2">Casos de Teste</h3>
+                        <p class="text-sm text-blue-800/80">IA lê as instruções do Dev e cria os scripts Playwright prontos.</p>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="bg-gradient-to-br from-[#45ba4b] to-[#36913b] p-6 rounded-3xl shadow-xl h-full text-white transform hover:scale-105 transition-all">
+                        <div class="w-12 h-12 bg-white/20 backdrop-blur-md text-white rounded-2xl flex items-center justify-center mb-4 text-xl">✅</div>
+                        <h3 class="font-bold mb-2 uppercase">Finalização</h3>
+                        <p class="text-sm text-white/90">Sincronização via API para Azure, Notion e Swagger concluída.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+    <div class="section-divider max-w-6xl mx-auto"></div>
+
+    <section id="ciclo-playwright" class="py-24 px-6 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 tracking-tight">
+                Ciclo de Execução Playwright
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                Como a arquitetura MCP (Model Context Protocol) e ML (Machine Learning) garante que o teste nunca quebre sozinho.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            
+            <div class="group" data-aos="zoom-in" data-aos-delay="100">
+                <div class="h-full bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100 hover:border-blue-400 transition-all duration-500 shadow-sm hover:shadow-xl">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center text-2xl group-hover:rotate-12 transition-transform">🔍</div>
+                        <span class="text-4xl font-black text-gray-200 group-hover:text-blue-100 transition-colors">01</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Smart Locators</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        O Playwright identifica elementos no GeneXus via <span class="font-mono bg-blue-100 px-1 text-blue-700">role</span> ou <span class="font-mono bg-blue-100 px-1 text-blue-700">test-id</span>, ignorando IDs dinâmicos que costumam quebrar.
+                    </p>
                 </div>
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
-            <script>
-                mermaid.initialize({ 
-                    startOnLoad: true,
-                    theme: 'neutral',
-                    securityLevel: 'loose'
-                });
-            </script>
-        </section>
+            <div class="group" data-aos="zoom-in" data-aos-delay="200">
+                <div class="h-full bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100 hover:border-[#45ba4b] transition-all duration-500 shadow-sm hover:shadow-xl">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center text-2xl group-hover:rotate-12 transition-transform">⚡</div>
+                        <span class="text-4xl font-black text-gray-200 group-hover:text-green-100 transition-colors">02</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Execução Paralela</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Testes rodam em múltiplos browsers simultaneamente. O Playwright aguarda o carregamento do sistema automaticamente (Auto-waiting).
+                    </p>
+                </div>
+            </div>
+
+            <div class="group" data-aos="zoom-in" data-aos-delay="300">
+                <div class="h-full bg-blue-600 p-8 rounded-[2.5rem] shadow-2xl transform lg:-translate-y-4">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center text-2xl border border-blue-400">🧠</div>
+                        <span class="text-4xl font-black text-blue-400 opacity-50">03</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3 tracking-wide text-blue-100">Self-Healing IA</h4>
+                    <p class="text-blue-100 text-sm leading-relaxed">
+                        Se a UI do GX9 mudar, a IA analisa o contexto da página e sugere a correção do teste em tempo real, evitando falsos negativos.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-blue-500 flex items-center gap-3">
+                        <div class="flex -space-x-2">
+                            <div class="w-6 h-6 rounded-full bg-green-400 border-2 border-blue-600"></div>
+                            <div class="w-6 h-6 rounded-full bg-blue-300 border-2 border-blue-600"></div>
+                        </div>
+                        <span class="text-[10px] uppercase font-bold text-blue-200">AI Monitor Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group" data-aos="zoom-in" data-aos-delay="400">
+                <div class="h-full bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100 hover:border-red-400 transition-all duration-500 shadow-sm hover:shadow-xl">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center text-2xl group-hover:rotate-12 transition-transform">📸</div>
+                        <span class="text-4xl font-black text-gray-200 group-hover:text-red-100 transition-colors">04</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Trace Viewer</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Geração automática de Vídeos, Screenshots e logs de console. Evidência irrefutável anexada diretamente ao card do Azure DevOps.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-20 flex flex-col md:flex-row items-center justify-center gap-8 text-gray-500 font-medium">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-[#45ba4b] rounded-full"></span>
+                Redução de 90% no esforço de manutenção
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                Integração Nativa com Azure/Notion
+            </div>
+        </div>
+    </div>
+</section>
 
     <div class="section-divider max-w-6xl mx-auto"></div>
 
