@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Release Notes — Siscobra Sistemas</title>
+    <style>
+      /* ═══════════════════════════════════════════════════════════
+       PALETA SISCOBRA — extraída de siscobra.com.br
+       Vermelho primário:  #E7000B
+       Vermelho escuro:    #C0000A
+       Background:         #FFFFFF
+       Background alt:     #F9FAFB
+       Texto principal:    #171717
+       Texto secundário:   #364153
+       Texto muted:        #6B7280
+       Border:             #E5E7EB
+       ═══════════════════════════════════════════════════════════ */
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background-color: #f9fafb;
+        color: #171717;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Container principal */
+      .email-wrapper {
+        max-width: 640px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      /* ── HEADER ── */
+      .header {
+        background: linear-gradient(135deg, #e7000b 0%, #c0000a 100%);
+        padding: 40px 32px 32px;
+        text-align: center;
+      }
+
+      .header-logo {
+        font-size: 28px;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: -0.5px;
+        margin-bottom: 4px;
+      }
+
+      .header-logo span {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .header-subtitle {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      .header-version {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 8px 20px;
+        border-radius: 24px;
+        margin-bottom: 8px;
+      }
+
+      .header-date {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 13px;
+        margin-top: 12px;
+      }
+
+      /* ── INTRO ── */
+      .intro {
+        padding: 32px 32px 24px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .intro p {
+        color: #364153;
+        font-size: 15px;
+      }
+
+      .intro strong {
+        color: #171717;
+      }
+
+      /* ── SECTION ── */
+      .section {
+        padding: 28px 32px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .section:last-of-type {
+        border-bottom: none;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .section-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .icon-feature {
+        background: rgba(231, 0, 11, 0.1);
+        color: #e7000b;
+      }
+
+      .icon-fix {
+        background: rgba(231, 0, 11, 0.08);
+        color: #c0000a;
+      }
+
+      .icon-improve {
+        background: rgba(54, 65, 83, 0.08);
+        color: #364153;
+      }
+
+      .section-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #171717;
+      }
+
+      .section-count {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 500;
+      }
+
+      /* ── ITEM ── */
+      .item {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 18px 20px;
+        margin-bottom: 12px;
+        transition: border-color 0.2s;
+      }
+
+      .item:hover {
+        border-color: #e7000b;
+      }
+
+      .item:last-child {
+        margin-bottom: 0;
+      }
+
+      .item-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #171717;
+        margin-bottom: 6px;
+      }
+
+      .item-desc {
+        font-size: 14px;
+        color: #6b7280;
+        line-height: 1.5;
+      }
+
+      .item-tag {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 3px 10px;
+        border-radius: 12px;
+        margin-top: 10px;
+      }
+
+      .tag-regua {
+        background: rgba(231, 0, 11, 0.08);
+        color: #c0000a;
+      }
+
+      .tag-portal {
+        background: rgba(54, 65, 83, 0.08);
+        color: #364153;
+      }
+
+      .tag-pagamento {
+        background: rgba(107, 114, 128, 0.1);
+        color: #374151;
+      }
+
+      .tag-relatorio {
+        background: rgba(245, 158, 11, 0.1);
+        color: #d97706;
+      }
+
+      .tag-seguranca {
+        background: rgba(231, 0, 11, 0.1);
+        color: #e7000b;
+      }
+
+      /* ── SCREENSHOT ── */
+      .screenshot-wrapper {
+        margin-top: 14px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+      }
+
+      .screenshot-placeholder {
+        background: linear-gradient(135deg, #e7000b 0%, #c0000a 100%);
+        height: 180px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 13px;
+        gap: 8px;
+      }
+
+      .screenshot-placeholder .icon {
+        font-size: 32px;
+        opacity: 0.5;
+      }
+
+      .screenshot-caption {
+        font-size: 12px;
+        color: #9ca3af;
+        text-align: center;
+        padding: 8px;
+        background: #f9fafb;
+      }
+
+      /* ── STATS ── */
+      .stats {
+        display: flex;
+        gap: 12px;
+        padding: 28px 32px;
+        background: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .stat-card {
+        flex: 1;
+        text-align: center;
+        padding: 16px 8px;
+        background: #ffffff;
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .stat-number {
+        font-size: 28px;
+        font-weight: 800;
+        color: #171717;
+        line-height: 1;
+      }
+
+      .stat-number.red {
+        color: #e7000b;
+      }
+      .stat-number.gray {
+        color: #364153;
+      }
+      .stat-number.dark-red {
+        color: #c0000a;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 6px;
+        font-weight: 600;
+      }
+
+      /* ── CTA ── */
+      .cta-section {
+        padding: 32px;
+        text-align: center;
+        background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+      }
+
+      .cta-text {
+        font-size: 15px;
+        color: #364153;
+        margin-bottom: 20px;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background: #e7000b;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 14px 36px;
+        border-radius: 8px;
+        box-shadow: 0 4px 14px rgba(231, 0, 11, 0.25);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+      }
+
+      .cta-button:hover {
+        background: #c0000a;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(231, 0, 11, 0.35);
+      }
+
+      .cta-secondary {
+        display: inline-block;
+        color: #364153;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 16px;
+      }
+
+      .cta-secondary:hover {
+        color: #e7000b;
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        background: #171717;
+        padding: 32px;
+        text-align: center;
+      }
+
+      .footer-logo {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 12px;
+      }
+
+      .footer-logo span {
+        color: #e7000b;
+      }
+
+      .footer-links {
+        margin-bottom: 16px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        font-size: 13px;
+        margin: 0 12px;
+        transition: color 0.2s;
+      }
+
+      .footer-links a:hover {
+        color: #e7000b;
+      }
+
+      .footer-info {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .footer-divider {
+        width: 40px;
+        height: 2px;
+        background: rgba(231, 0, 11, 0.4);
+        margin: 16px auto;
+        border-radius: 1px;
+      }
+
+      .footer-social {
+        margin-top: 16px;
+      }
+
+      .footer-social a {
+        display: inline-block;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        font-size: 14px;
+        margin: 0 4px;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .footer-social a:hover {
+        background: #e7000b;
+        color: #ffffff;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 480px) {
+        .header {
+          padding: 28px 20px 24px;
+        }
+        .intro,
+        .section,
+        .cta-section {
+          padding: 24px 20px;
+        }
+        .stats {
+          flex-direction: column;
+          padding: 20px;
+        }
+        .section-title {
+          font-size: 16px;
+        }
+        .stat-number {
+          font-size: 24px;
+        }
+        .footer {
+          padding: 24px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body style="padding: 24px 16px">
+    <div class="email-wrapper">
+      <!-- ═══ HEADER ═══ -->
+      <div class="header">
+        <div class="header-logo">Siscobra<span>.</span></div>
+        <div class="header-subtitle">Release Notes</div>
+        <div class="header-version">v3.14.0</div>
+        <div class="header-date">Sprint 2026.05 — 27 de fevereiro de 2026</div>
+      </div>
+
+      <!-- ═══ STATS ═══ -->
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number red">4</div>
+          <div class="stat-label">Novidades</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number gray">6</div>
+          <div class="stat-label">Melhorias</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number dark-red">3</div>
+          <div class="stat-label">Correções</div>
+        </div>
+      </div>
+
+      <!-- ═══ INTRO ═══ -->
+      <div class="intro">
+        <p>
+          Olá, <strong>equipe [Nome do Cliente]</strong>! 👋<br /><br />
+          Temos novidades na plataforma! Nesta sprint, o foco foi em
+          <strong>otimização da régua de cobrança</strong> e
+          <strong>melhorias no portal de autonegociação</strong>. Confira abaixo
+          os destaques:
+        </p>
+      </div>
+
+      <!-- ═══ NOVAS FUNCIONALIDADES ═══ -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-feature">✦</div>
+          <div>
+            <div class="section-title">Novas Funcionalidades</div>
+            <div class="section-count">4 itens nesta sprint</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-title">Testes A/B na Régua de Cobrança</div>
+          <div class="item-desc">
+            Agora é possível criar variantes de mensagem na régua e comparar
+            taxas de resposta e pagamento em tempo real. Configure pelo menu
+            <em>Régua → Testes A/B</em>.
+          </div>
+          <span class="item-tag tag-regua">Régua</span>
+          <div class="screenshot-wrapper">
+            <div class="screenshot-placeholder">
+              <span class="icon">📸</span>
+              Screenshot capturado automaticamente pelo Playwright
+            </div>
+            <div class="screenshot-caption">
+              Tela de configuração de Testes A/B na régua
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-title">Dashboard de Resultados A/B</div>
+          <div class="item-desc">
+            Painel dedicado para acompanhar performance das variantes, com
+            indicação de vencedor e intervalo de confiança estatístico.
+          </div>
+          <span class="item-tag tag-relatorio">Relatórios</span>
+        </div>
+
+        <div class="item">
+          <div class="item-title">Portal: Simulador de Parcelamento</div>
+          <div class="item-desc">
+            Devedores agora podem simular diferentes cenários de parcelamento no
+            portal de autonegociação antes de formalizar o acordo.
+          </div>
+          <span class="item-tag tag-portal">Portal</span>
+        </div>
+
+        <div class="item">
+          <div class="item-title">Exportação de relatórios em XLSX</div>
+          <div class="item-desc">
+            Todos os relatórios analíticos agora suportam exportação nativa para
+            Excel, com formatação e filtros preservados.
+          </div>
+          <span class="item-tag tag-relatorio">Relatórios</span>
+        </div>
+      </div>
+
+      <!-- ═══ MELHORIAS ═══ -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-improve">⬆</div>
+          <div>
+            <div class="section-title">Melhorias</div>
+            <div class="section-count">6 itens nesta sprint</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            Performance: Geração de boletos 3x mais rápida
+          </div>
+          <div class="item-desc">
+            Otimização no pipeline de geração de boletos reduziu o tempo médio
+            de processamento de 4.2s para 1.3s por lote.
+          </div>
+          <span class="item-tag tag-pagamento">Pagamento</span>
+        </div>
+
+        <div class="item">
+          <div class="item-title">WhatsApp: Templates pré-aprovados</div>
+          <div class="item-desc">
+            Adicionamos 12 novos templates de mensagem pré-aprovados pela Meta,
+            cobrindo cenários de negociação, lembrete e confirmação de acordo.
+          </div>
+          <span class="item-tag tag-regua">Régua</span>
+        </div>
+
+        <div class="item">
+          <div class="item-title">UX: Redesign da fila de cobrança</div>
+          <div class="item-desc">
+            Interface da fila de cobrança redesenhada para maior clareza, com
+            filtros rápidos e indicadores visuais de prioridade.
+          </div>
+          <span class="item-tag tag-portal">Interface</span>
+        </div>
+      </div>
+
+      <!-- ═══ CORREÇÕES ═══ -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-icon icon-fix">●</div>
+          <div>
+            <div class="section-title">Correções</div>
+            <div class="section-count">3 itens nesta sprint</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            Correção: Timeout em envio massivo de SMS
+          </div>
+          <div class="item-desc">
+            Resolvido problema que causava falha silenciosa ao enviar lotes com
+            mais de 5.000 mensagens SMS simultâneas.
+          </div>
+          <span class="item-tag tag-seguranca">Crítico</span>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            Correção: Cálculo de juros em acordos retroativos
+          </div>
+          <div class="item-desc">
+            Corrigida divergência no cálculo de juros quando a data do acordo
+            era anterior à data de vencimento original do título.
+          </div>
+          <span class="item-tag tag-pagamento">Pagamento</span>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            Correção: Filtro de período no relatório analítico
+          </div>
+          <div class="item-desc">
+            O filtro de data agora respeita corretamente o fuso horário
+            configurado na conta do cliente.
+          </div>
+          <span class="item-tag tag-relatorio">Relatórios</span>
+        </div>
+      </div>
+
+      <!-- ═══ CTA ═══ -->
+      <div class="cta-section">
+        <div class="cta-text">
+          Tem dúvidas sobre alguma novidade?<br />
+          Nossa equipe está pronta para ajudar.
+        </div>
+        <a
+          href="https://api.whatsapp.com/send?phone=5547991709390"
+          class="cta-button"
+        >
+          Falar com Suporte
+        </a>
+        <br />
+        <a href="https://docs.siscobra.com.br" class="cta-secondary">
+          Acessar documentação completa →
+        </a>
+      </div>
+
+      <!-- ═══ FOOTER ═══ -->
+      <div class="footer">
+        <div class="footer-logo">Siscobra<span>.</span></div>
+        <div class="footer-links">
+          <a href="https://siscobra.com.br">Site</a>
+          <a href="https://siscobra.com.br/blog">Blog</a>
+          <a href="https://docs.siscobra.com.br">Docs</a>
+          <a href="https://siscobra.com.br/contato">Contato</a>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-info">
+          Siscobra LTDA — CNPJ 08.976.507/0001-97<br />
+          Rua Joinville, 455 — Sala 01 — Centro, Apiúna/SC<br />
+          (47) 3394-9593
+        </div>
+        <div class="footer-social">
+          <a
+            href="https://www.instagram.com/siscobra.sistemas/"
+            title="Instagram"
+            >📷</a
+          >
+          <a
+            href="https://www.linkedin.com/company/siscobra-sistemas/"
+            title="LinkedIn"
+            >💼</a
+          >
+          <a href="https://www.youtube.com/@Siscobra.Sistemas" title="YouTube"
+            >▶</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

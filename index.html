@@ -1,717 +1,1227 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Arquitetura de Testes Inteligentes - Projeto de Inovação</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
-        body {
-            scroll-behavior: smooth;
+      body {
+        scroll-behavior: smooth;
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .hero-gradient {
+        background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+      }
+
+      .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #dc2626, transparent);
+        opacity: 0.3;
+      }
+
+      .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+      }
+
+      .accent-underline {
+        position: relative;
+        display: inline-block;
+      }
+
+      .accent-underline::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: #dc2626;
+      }
+
+      .button-primary {
+        background: #dc2626;
+        color: #fff;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .button-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: #991b1b;
+        transition: left 0.3s ease;
+        z-index: -1;
+      }
+
+      .button-primary:hover::before {
+        left: 0;
+      }
+
+      .button-primary:hover {
+        color: #fff;
+      }
+
+      .timeline-item {
+        position: relative;
+        padding-left: 40px;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(180deg, #dc2626, transparent);
+      }
+
+      .timeline-item::after {
+        content: "";
+        position: absolute;
+        left: -6px;
+        top: 6px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #dc2626;
+        border: 3px solid #fff;
+        box-shadow: 0 0 0 3px #000;
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(220, 38, 38, 0.1);
+        color: #dc2626;
+        font-size: 28px;
+      }
+
+      @media (max-width: 768px) {
+        .section-padding {
+          padding: 60px 20px;
         }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-        
-        .hero-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-        }
-        
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #dc2626, transparent);
-            opacity: 0.3;
-        }
-        
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
-        }
-        
-        .accent-underline {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .accent-underline::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: #dc2626;
-        }
-        
-        .button-primary {
-            background: #dc2626;
-            color: #fff;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .button-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: #991b1b;
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-        
-        .button-primary:hover::before {
-            left: 0;
-        }
-        
-        .button-primary:hover {
-            color: #fff;
-        }
-        
-        .timeline-item {
-            position: relative;
-            padding-left: 40px;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 3px;
-            height: 100%;
-            background: linear-gradient(180deg, #dc2626, transparent);
-        }
-        
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: -6px;
-            top: 6px;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: #dc2626;
-            border: 3px solid #fff;
-            box-shadow: 0 0 0 3px #000;
-        }
-        
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(220, 38, 38, 0.1);
-            color: #dc2626;
-            font-size: 28px;
-        }
-        
-        @media (max-width: 768px) {
-            .section-padding {
-                padding: 60px 20px;
-            }
-        }
+      }
     </style>
-</head>
-<body class="bg-white text-black font-sans">
-    
+  </head>
+  <body class="bg-white text-black font-sans">
     <nav class="fixed top-0 left-0 right-0 z-50 glass-effect">
-        <div class="max-w-7xl mx-auto px-2 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 flex items-center justify-center">
-                    <img src="https://i.imgur.com/p8K2nkl.png" alt="Logo TestIA" class="w-full h-full object-contain">
-                </div>
-                <h1 class="text-xl font-bold text-red-600">QA Inteligente & Release Notes</h1>
-            </div>
-            <div class="hidden md:flex items-center gap-8 text-sm">
-                <a href="#solucoes" class="text-black font-bold hover:text-red-600 transition">Soluções</a>
-                <a href="#objetivo" class="text-black font-bold hover:text-red-600 transition">Objetivo</a>
-                <a href="#arquitetura" class="text-black font-bold hover:text-red-600 transition">Arquitetura</a>
-                <a href="#cenarios" class="text-black  font-bold hover:text-red-600 transition">Cenários</a>
-                <a href="#roi" class="text-black font-bold hover:text-red-600 transition">ROI</a>
-            </div>
+      <div
+        class="max-w-7xl mx-auto px-2 py-4 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 flex items-center justify-center">
+            <img
+              src="https://raichu-uploads.s3.amazonaws.com/logo_siscobra-ltda_3SsjdB.jpg"
+              alt="Logo Siscobra"
+              class="w-full h-full object-contain"
+            />
+          </div>
+          <h1 class="text-xl font-bold text-red-600">
+            QA Inteligente & Release Notes
+          </h1>
         </div>
+        <div class="hidden md:flex items-center gap-8 text-sm">
+          <a
+            href="#objetivo"
+            class="text-black font-bold hover:text-red-600 transition"
+            >Desafio</a
+          >
+          <a
+            href="#solucoes"
+            class="text-black font-bold hover:text-red-600 transition"
+            >Soluções</a
+          >
+          <a
+            href="#release"
+            class="text-black font-bold hover:text-red-600 transition"
+            >Release Notes</a
+          >
+          <a
+            href="#arquitetura"
+            class="text-black font-bold hover:text-red-600 transition"
+            >Arquitetura</a
+          >
+          <a
+            href="#roi"
+            class="text-black font-bold hover:text-red-600 transition"
+            >ROI</a
+          >
+        </div>
+      </div>
     </nav>
 
-    <section id="motivacao" class="py-24 px-6 bg-gray-100 overflow-hidden">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col lg:flex-row items-center gap-16">
-                <div class="lg:w-1/2" data-aos="fade-right">
-                    <h2 class="text-sm font-bold text-red-600 uppercase tracking-widest mb-4">Por que agir agora?</h2>
-                    <h3 class="text-4xl font-bold text-gray-900 mb-6 leading-tight">
-                        Não precisamos reescrever o legado para <span class="text-red-600">parar de perder dinheiro.</span>
-                    </h3>
-                    <div class="space-y-6 text-lg text-gray-700">
-                        <p>
-                            Hoje, o <span class="font-semibold">GeneXus 9</span> impõe limites que resultam em multas contratuais e um ciclo infinito de refação em testes manuais. Reescrever o sistema seria inviável, mas ignorar o custo das falhas é perigoso.
-                        </p>
-                        <p class="border-l-4 border-red-600 pl-6 italic bg-gray-50 py-4 rounded-r-2xl">
-                            "Nossa proposta é encapsular o legado com uma camada de inteligência externa."
-                        </p>
-                        <p>
-                            O Playwright testa externamente, a IA corrige os fluxos e automatiza a burocracia. Com isso, geramos um impacto significativo ao fim das regressões, das multas e geramos entregas com evidências visuais automáticas para o cliente.
-                        </p>
-                    </div>
-                    <div class="mt-10">
-                        <a href="#solucoes" class="inline-block px-8 py-4 bg-red-600 text-white font-bold rounded-xl shadow-lg hover:bg-black transition-all transform hover:-translate-y-1">
-                            Ver Fluxo de Automação
-                        </a>
-                    </div>
-                </div>
-                <div class="lg:w-1/2 relative" data-aos="fade-left">
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-black mb-6 transform -rotate-2 hover:rotate-0 transition duration-300">
-                        <div class="flex items-center gap-4 mb-2">
-                            <span class="text-2xl">⚠️</span>
-                            <h4 class="font-bold text-gray-800">Cenário Atual</h4>
-                        </div>
-                        <ul class="text-sm text-gray-600 space-y-2">
-                            <li>• Multas contratuais por bugs em produção.</li>
-                            <li>• Testes manuais lentos e repetitivos.</li>
-                            <li>• Limitação técnica do legado (GX9).</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-red-600 ml-8 transform rotate-2 hover:rotate-0 transition duration-300">
-                        <div class="flex items-center gap-4 mb-2">
-                            <span class="text-2xl">🛡️</span>
-                            <h4 class="font-bold text-gray-800">Com a Camada de IA</h4>
-                        </div>
-                        <ul class="text-sm text-gray-600 space-y-2">
-                            <li>• Regressão 100% automatizada.</li>
-                            <li>• Notas de atualização com evidências visuais.</li>
-                            <li>• Fim das multas e aumento da confiança.</li>
-                        </ul>
-                    </div>
-                    <div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-red-600 opacity-5 blur-3xl rounded-full"></div>
-                </div>
-            </div>
+    <!-- CAPA DO PROJETO -->
+    <section
+      id="capa"
+      class="min-h-screen flex items-center justify-center relative overflow-hidden bg-black"
+    >
+      <div class="absolute inset-0">
+        <div
+          class="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600 opacity-10 blur-[120px] rounded-full"
+        ></div>
+        <div
+          class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-red-600 opacity-5 blur-[100px] rounded-full"
+        ></div>
+        <div
+          class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_70%)]"
+        ></div>
+      </div>
+      <div
+        class="relative z-10 text-center max-w-5xl mx-auto px-6"
+        data-aos="fade-up"
+        data-aos-duration="1200"
+      >
+        <div class="mb-8">
+          <img
+            src="https://raichu-uploads.s3.amazonaws.com/logo_siscobra-ltda_3SsjdB.jpg"
+            alt="Logo Siscobra"
+            class="w-24 h-24 mx-auto mb-8 opacity-80 rounded-full"
+          />
         </div>
-    </section>
-
-    <section id="solucoes" class="py-24 px-6 bg-white relative">
-        <div class="absolute top-0 left-0 w-64 h-64 bg-red-50 rounded-full blur-3xl opacity-50 -z-10"></div>
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tighter">
-                    Etapas da <span class="text-red-600">Solução</span>
-                </h2>
-                <p class="mt-4 text-gray-600 font-medium">O caminho da automação: da coleta de dados à sincronização final.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-                <div class="md:col-span-7 space-y-6">
-                    <div class="group flex flex-col md:flex-row gap-6 items-center bg-gray-50 p-8 rounded-[2rem] border border-transparent hover:border-red-200 hover:bg-white hover:shadow-xl transition-all duration-500" data-aos="fade-right">
-                        <div class="bg-red-600 text-white w-16 h-16 rounded-2xl text-2xl font-black flex items-center justify-center shrink-0 shadow-lg shadow-red-600/20 group-hover:rotate-6 transition-transform">
-                            01
-                        </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-gray-900 group-hover:text-red-600 transition-colors">Geração de Casos de Teste</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">Ações inteligentes integradas ao <span class="font-semibold text-gray-900">Azure DevOps</span> que coletam dados do PBI para gerar descrições e roteiros de teste automáticos.</p>
-                        </div>
-                    </div>
-                    <div class="group flex flex-col md:flex-row gap-6 items-center bg-gray-50 p-8 rounded-[2rem] border border-transparent hover:border-red-200 hover:bg-white hover:shadow-xl transition-all duration-500" data-aos="fade-right" data-aos-delay="100">
-                        <div class="bg-red-600 text-white w-16 h-16 rounded-2xl text-2xl font-black flex items-center justify-center shrink-0 shadow-lg shadow-red-600/20 group-hover:rotate-6 transition-transform">
-                            02
-                        </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-gray-900 group-hover:text-red-600 transition-colors">MOCK Inteligente</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">Geração instantânea e segura de <span class="font-semibold text-gray-900">massa de dados (JSON/XML)</span> para APIs, garantindo conformidade total e velocidade de execução.</p>
-                        </div>
-                    </div>
-                    <div class="group flex flex-col md:flex-row gap-6 items-center bg-gray-50 p-8 rounded-[2rem] border border-transparent hover:border-red-200 hover:bg-white hover:shadow-xl transition-all duration-500" data-aos="fade-right" data-aos-delay="200">
-                        <div class="bg-red-600 text-white w-16 h-16 rounded-2xl text-2xl font-black flex items-center justify-center shrink-0 shadow-lg shadow-red-600/20 group-hover:rotate-6 transition-transform">
-                            03
-                        </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <h3 class="text-xl font-bold mb-2 uppercase tracking-tight text-gray-900 group-hover:text-red-600 transition-colors">Documentação Automática</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">Sincronização em tempo real entre <span class="font-semibold text-gray-900">Notion, Swagger e Azure</span>. Elimina a fragmentação e garante uma única fonte da verdade.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="hidden md:block md:col-span-5" data-aos="fade-left">
-                    <div class="relative group">
-                        <div class="absolute inset-0 bg-red-600 rounded-[2.5rem] opacity-0 group-hover:opacity-100 group-hover:translate-x-4 group-hover:translate-y-4 transition-all duration-700 -z-10 shadow-[0_0_50px_rgba(239,68,68,0.3)]"></div>
-                        <div class="relative rounded-[2.5rem] overflow-hidden border-4 border-white transition-transform duration-700 group-hover:scale-[1.01]">
-                            <img src="https://cdn.gamma.app/xcbq7murwpjbdcp/92264cf69b0441368c216a562b17a405/optimized/post-1746721784503-543954741.avif" alt="Ilustração Arquitetura" class="w-full h-auto object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div
+          class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 text-xs font-bold uppercase px-6 py-2 rounded-full tracking-[0.3em] mb-8 border border-red-600/30"
+        >
+          Projeto Inovação 2026
         </div>
-    </section>
-
-    <section id="release" class="py-24 px-6 bg-gray-900 text-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div data-aos="fade-right">
-                    <h2 class="text-4xl font-bold mb-6">Entrega de Valor: <span class="text-red-500">Release Notes</span></h2>
-                    <p class="text-gray-400 mb-8 leading-relaxed">
-                        Ao final de cada Sprint, a IA analisa os cards e gera comunicações personalizadas, segmentando o que é melhoria geral do que é regra específica por cliente.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex gap-4 items-center">
-                            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic font-bold">!</div>
-                            <p class="text-sm">Redução de churn através da percepção de evolução constante.</p>
-                        </div>
-                        <div class="flex gap-4 items-center">
-                            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic font-bold">!</div>
-                            <p class="text-sm">Envio para fila de revisão humana para garantir tom de voz perfeito.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white/5 p-8 rounded-3xl border border-white/10" data-aos="fade-left">
-                    <div class="text-center py-10">
-                        <div class="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">📄</div>
-                        <h4 class="text-2xl font-bold mb-2">99% de Economia</h4>
-                        <p class="text-white">De 4 horas de compilação manual para 2 minutos de geração automática.</p>
-                    </div>
-                </div>
-            </div>
+        <h1
+          class="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter leading-[1.1]"
+        >
+          QA Inteligente<br />
+          <span class="text-red-600">&</span> Release Notes<br />
+          <span class="text-red-500">Automático</span>
+        </h1>
+        <p
+          class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light"
+        >
+          Uma camada de inteligência em volta do legado que
+          <strong class="text-white">testa por fora</strong>,
+          <strong class="text-white">documenta automaticamente</strong> e
+          <strong class="text-white">comunica ao cliente</strong> o que foi
+          entregue.
+        </p>
+        <div
+          class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+        >
+          <a
+            href="#objetivo"
+            class="inline-flex items-center gap-3 px-10 py-4 bg-red-600 text-white font-bold rounded-2xl shadow-lg shadow-red-600/30 hover:bg-red-700 transition-all transform hover:-translate-y-1 text-lg"
+          >
+            Começar Apresentação
+            <span class="text-xl">→</span>
+          </a>
         </div>
-    </section>
-
-    <section class="hero-gradient min-h-[80vh] flex items-center justify-center px-6 pt-20">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-            <div class="text-left">
-                <h1 class="text-5xl md:text-5xl font-bold mb-6 leading-tight">
-                    Arquitetura de <span class="text-red-600">Testes Inteligentes</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed">
-                    Playwright com MCP: Uma solução revolucionária que automatiza testes com inteligência semântica e persistência compartilhada.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-start">
-                    <a href="https://www.notion.so/pedroandrade-private/Projeto-de-Inova-o-333cfaefa95e80f0918de8f07d1580d1" 
-                    target="_blank" 
-                    class="inline-block px-8 py-3 rounded-lg font-medium border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition">
-                        Explorar Projeto
-                    </a>
-                    <a href="https://playwright.dev/" 
-                    target="_blank" 
-                    class="inline-block px-8 py-3 rounded-lg font-medium border-2 border-black text-black hover:bg-black hover:text-white transition">
-                        Documentação Playwright
-                    </a>
-                </div>
-            </div>
-            <div class="relative group">
-                <div class="absolute -inset-1 bg-red-600 opacity-10 blur-xl rounded-full"></div>
-                <img src="https://i.imgur.com/wU3oVgB.png" alt="Ilustração Arquitetura" class="relative rounded-2xl shadow-2xl w-full h-auto object-cover transform transition duration-500 hover:scale-[1.02]">
-            </div>
+        <div
+          class="flex items-center justify-center gap-8 text-sm text-gray-500"
+        >
+          <span class="flex items-center gap-2"
+            ><span class="w-2 h-2 bg-red-600 rounded-full"></span>Siscobra
+            Sistemas</span
+          >
+          <span class="flex items-center gap-2"
+            ><span class="w-2 h-2 bg-gray-600 rounded-full"></span>Time
+            Implantação</span
+          >
         </div>
+      </div>
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div
+          class="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center pt-2"
+        >
+          <div class="w-1.5 h-3 bg-red-600 rounded-full"></div>
+        </div>
+      </div>
     </section>
 
     <section id="objetivo" class="py-24 px-6 bg-white overflow-hidden relative">
-        <div class="absolute -top-40 -right-40 w-80 h-80 bg-red-50 rounded-full blur-3xl opacity-60 -z-10"></div>
-        <div class="max-w-6xl mx-auto relative z-10">
-            <div class="grid md:grid-cols-12 gap-16 items-center">
-                <div class="md:col-span-5" data-aos="fade-right">
-                    <div class="inline-flex items-center gap-2 bg-red-100 text-red-700 text-xs font-bold uppercase px-4 py-2 rounded-full tracking-widest mb-6 border border-red-200 shadow-inner">
-                        ⚠️ Cenário Atual
-                    </div>
-                    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 text-gray-900 tracking-tighter leading-tight">
-                        O Desafio do<br> Sistema Legado
-                    </h2>
-                    <p class="text-lg text-gray-700 mb-10 leading-relaxed font-medium">
-                        Sistemas baseados em <span class="font-bold text-gray-900 decoration-red-600 decoration-2">GeneXus 9</span> carecem de testes nativos robustos.
-                    </p>
-                    <ul class="space-y-5 text-gray-700">
-                        <li class="flex gap-4 items-start group">
-                            <span class="text-red-600 text-xl group-hover:scale-125 transition-transform mt-0.5">→</span>
-                            <span><strong class="text-gray-900">Inadequação de Tempo:</strong> Testes manuais lentos e repetitivos.</span>
-                        </li>
-                        <li class="flex gap-4 items-start group">
-                            <span class="text-red-600 text-xl group-hover:scale-125 transition-transform mt-0.5">→</span>
-                            <span><strong class="text-gray-900">Risco de Qualidade:</strong> Baixa cobertura de regressão.</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="md:col-span-7 relative group" data-aos="fade-left">
-                    <div class="absolute inset-0 bg-red-600 rounded-[2.5rem] opacity-0 group-hover:opacity-100 group-hover:translate-x-3 group-hover:translate-y-3 transition-all duration-500 -z-10 shadow-[0_0_50px_rgba(239,68,68,0.4)]"></div>
-                    <div class="h-full bg-white p-12 rounded-[2.5rem] border border-gray-100 group-hover:border-red-600 transition-all duration-500 shadow-2xl relative z-10 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center gap-5 mb-10">
-                                <div class="w-16 h-16 bg-red-600 rounded-3xl flex items-center justify-center text-4xl shadow-lg shadow-red-600/20 group-hover:rotate-12 transition-transform">🛡️</div>
-                                <h3 class="text-3xl font-black text-gray-900 tracking-tighter">A Solução Inteligente</h3>
-                            </div>
-                            <div class="space-y-6">
-                                <div class="group flex gap-5 bg-gray-50 p-6 rounded-3xl border border-gray-100 hover:border-red-200 transition-colors">
-                                    <div class="w-14 h-14 bg-red-500 text-white rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shrink-0">🎯</div>
-                                    <div>
-                                        <h4 class="font-bold text-lg text-gray-900 mb-1">Níveis Híbridos de Operação</h4>
-                                        <p class="text-sm text-gray-700">Determinístico para fluxos críticos, Semântico para escalabilidade.</p>
-                                    </div>
-                                </div>
-                                <div class="group flex gap-5 bg-gray-50 p-6 rounded-3xl border border-gray-100 hover:border-red-200 transition-colors">
-                                    <div class="w-14 h-14 bg-red-500 text-white rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shrink-0">🧠</div>
-                                    <div>
-                                        <h4 class="font-bold text-lg text-gray-900 mb-1">IA Inteligente e Adaptável</h4>
-                                        <p class="text-sm text-gray-700">Automação baseada em contexto e aprendizado.</p>
-                                    </div>
-                                </div>
-                                <div class="group flex gap-5 bg-gray-50 p-6 rounded-3xl border border-gray-100 hover:border-red-200 transition-colors">
-                                    <div class="w-14 h-14 bg-red-500 text-white rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shrink-0">💾</div>
-                                    <div>
-                                        <h4 class="font-bold text-lg text-gray-900 mb-1">Persistência Centralizada</h4>
-                                        <p class="text-sm text-gray-700">Conhecimento persistente em volume compartilhado.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div
+        class="absolute -top-40 -right-40 w-80 h-80 bg-red-50 rounded-full blur-3xl opacity-60 -z-10"
+      ></div>
+      <div class="max-w-6xl mx-auto relative z-10">
+        <div class="grid md:grid-cols-12 gap-16 items-center">
+          <div class="md:col-span-5" data-aos="fade-right">
+            <div
+              class="inline-flex items-center gap-2 bg-red-100 text-red-700 text-xs font-bold uppercase px-4 py-2 rounded-full tracking-widest mb-6 border border-red-200 shadow-inner"
+            >
+              ⚠️ Cenário Atual
             </div>
-        </div>
-    </section>
-
-    <section id="arquitetura" class="py-24 px-6 bg-black overflow-hidden relative text-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-20" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white tracking-tight">
-                    Visão Geral da <span class="text-red-600">Arquitetura</span>
-                </h2>
-                <p class="text-lg text-gray-400 max-w-2xl mx-auto">Fluxo inteligente de orquestração entre intenção e ação.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-                <div class="relative group" data-aos="fade-right">
-                    <div class="bg-gray-900 p-8 rounded-[2rem] border border-gray-800 hover:border-red-600 transition-all duration-500 shadow-2xl h-full">
-                        <div class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center text-3xl mb-6">📥</div>
-                        <h3 class="font-bold text-xl text-white mb-3">Input de Teste</h3>
-                        <p class="text-gray-400 text-sm">Passos detalhados ou prompts naturais.</p>
-                    </div>
-                </div>
-                <div class="relative group" data-aos="fade-up">
-                    <div class="bg-gray-800 p-8 rounded-[2rem] border border-red-600/30 shadow-2xl scale-105 z-10 h-full">
-                        <div class="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg shadow-red-600/20">⚙️</div>
-                        <h3 class="font-bold text-xl text-white mb-3">Orquestração MCP</h3>
-                        <p class="text-gray-300 text-sm">Roteamento inteligente e planejamento.</p>
-                    </div>
-                </div>
-                <div class="relative group" data-aos="fade-left">
-                    <div class="bg-gray-900 p-8 rounded-[2rem] border border-gray-800 hover:border-red-600 transition-all duration-500 shadow-2xl h-full">
-                        <div class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center text-3xl mb-6">🎭</div>
-                        <h3 class="font-bold text-xl text-white mb-3">Executor Playwright</h3>
-                        <p class="text-gray-400 text-sm">Automação E2E robusta.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-16 text-center">
-                <div class="inline-flex bg-gray-900 px-8 py-4 rounded-full border border-gray-800">
-                    <p class="text-gray-300 text-sm font-medium">Validação em Tempo Real | Persistência | Aprendizado Contínuo</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="cenarios" class="py-24 px-6 bg-gray-50 overflow-hidden relative">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-bold mb-20 text-center tracking-tight text-gray-900" data-aos="fade-up">
-                Dois Cenários de <span class="text-red-600">Operação</span>
+            <h2
+              class="text-4xl md:text-5xl font-extrabold mb-6 text-gray-900 tracking-tighter leading-tight"
+            >
+              O Desafio do<br />
+              Sistema Legado
             </h2>
-            <div class="grid md:grid-cols-2 gap-10">
-                <div class="group relative" data-aos="fade-right">
-                    <div class="h-full bg-white p-10 rounded-[2.5rem] border border-gray-100 hover:border-black transition-all shadow-xl relative z-10 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center gap-5 mb-8">
-                                <div class="w-16 h-16 bg-gray-100 text-gray-700 rounded-3xl flex items-center justify-center text-3xl group-hover:bg-black group-hover:text-white transition-colors">🔧</div>
-                                <h3 class="text-3xl font-black text-gray-900 tracking-tighter">Teste<br>Determinístico</h3>
-                            </div>
-                            <p class="text-gray-700 mb-8 leading-relaxed">Velocidade e confiabilidade em fluxos conhecidos.</p>
-                        </div>
-                        <div class="pt-6 border-t border-gray-100">
-                            <span class="inline-flex items-center gap-2 bg-black text-white text-xs font-bold px-4 py-2 rounded-full tracking-wide">Fluxos Críticos</span>
-                        </div>
-                    </div>
+            <p class="text-lg text-gray-700 mb-10 leading-relaxed font-medium">
+              Sistemas baseados em
+              <span
+                class="font-bold text-gray-900 decoration-red-600 decoration-2"
+                >GeneXus 9</span
+              >
+              carecem de testes nativos robustos.
+            </p>
+            <ul class="space-y-5 text-gray-700">
+              <li class="flex gap-4 items-start group">
+                <span
+                  class="text-red-600 text-xl group-hover:scale-125 transition-transform mt-0.5"
+                  >→</span
+                >
+                <span
+                  ><strong class="text-gray-900">Inadequação de Tempo:</strong>
+                  Testes manuais lentos e repetitivos.</span
+                >
+              </li>
+              <li class="flex gap-4 items-start group">
+                <span
+                  class="text-red-600 text-xl group-hover:scale-125 transition-transform mt-0.5"
+                  >→</span
+                >
+                <span
+                  ><strong class="text-gray-900">Risco de Qualidade:</strong>
+                  Baixa cobertura de regressão.</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="md:col-span-7 relative group" data-aos="fade-left">
+            <div
+              class="absolute inset-0 bg-red-600 rounded-[2.5rem] opacity-0 group-hover:opacity-100 group-hover:translate-x-3 group-hover:translate-y-3 transition-all duration-500 -z-10 shadow-[0_0_50px_rgba(239,68,68,0.4)]"
+            ></div>
+            <div
+              class="h-full bg-white p-12 rounded-[2.5rem] border border-gray-100 group-hover:border-red-600 transition-all duration-500 shadow-2xl relative z-10 flex flex-col justify-between"
+            >
+              <div>
+                <div class="flex items-center gap-5 mb-10">
+                  <div
+                    class="w-16 h-16 bg-red-600 rounded-3xl flex items-center justify-center text-4xl shadow-lg shadow-red-600/20 group-hover:rotate-12 transition-transform"
+                  >
+                    🛡️
+                  </div>
+                  <h3
+                    class="text-3xl font-black text-gray-900 tracking-tighter"
+                  >
+                    A Solução Inteligente
+                  </h3>
                 </div>
-                <div class="group relative" data-aos="fade-left">
-                    <div class="h-full bg-white p-10 rounded-[2.5rem] border border-gray-100 hover:border-red-600 transition-all shadow-xl relative z-10 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center gap-5 mb-8">
-                                <div class="w-16 h-16 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center text-3xl group-hover:bg-red-600 group-hover:text-white transition-colors">🤖</div>
-                                <h3 class="text-3xl font-black text-gray-900 tracking-tighter">Teste<br>Semântico (IA)</h3>
-                            </div>
-                            <p class="text-gray-700 mb-8 leading-relaxed">Adaptação dinâmica baseada em intenção natural.</p>
-                        </div>
-                        <div class="pt-6 border-t border-gray-100">
-                            <span class="inline-flex items-center gap-2 bg-red-600 text-white text-xs font-bold px-4 py-2 rounded-full tracking-wide">Cenários Complexos</span>
-                        </div>
+                <div class="space-y-6">
+                  <div
+                    class="group flex gap-5 bg-gray-50 p-6 rounded-3xl border border-gray-100 hover:border-red-200 transition-colors"
+                  >
+                    <div
+                      class="w-14 h-14 bg-red-500 text-white rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shrink-0"
+                    >
+                      🎯
                     </div>
+                    <div>
+                      <h4 class="font-bold text-lg text-gray-900 mb-1">
+                        Níveis Híbridos de Operação
+                      </h4>
+                      <p class="text-sm text-gray-700">
+                        Determinístico para fluxos críticos, Semântico para
+                        escalabilidade.
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="group flex gap-5 bg-gray-50 p-6 rounded-3xl border border-gray-100 hover:border-red-200 transition-colors"
+                  >
+                    <div
+                      class="w-14 h-14 bg-red-500 text-white rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shrink-0"
+                    >
+                      🧠
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-lg text-gray-900 mb-1">
+                        IA Inteligente e Adaptável
+                      </h4>
+                      <p class="text-sm text-gray-700">
+                        Automação baseada em contexto e aprendizado.
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="group flex gap-5 bg-gray-50 p-6 rounded-3xl border border-gray-100 hover:border-red-200 transition-colors"
+                  >
+                    <div
+                      class="w-14 h-14 bg-red-500 text-white rounded-2xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shrink-0"
+                    >
+                      💾
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-lg text-gray-900 mb-1">
+                        Persistência Centralizada
+                      </h4>
+                      <p class="text-sm text-gray-700">
+                        Conhecimento persistente em volume compartilhado.
+                      </p>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section id="motivacao" class="py-24 px-6 bg-gray-100 overflow-hidden">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+          <div class="lg:w-1/2" data-aos="fade-right">
+            <h2
+              class="text-sm font-bold text-red-600 uppercase tracking-widest mb-4"
+            >
+              Por que agir agora?
+            </h2>
+            <h3 class="text-4xl font-bold text-gray-900 mb-6 leading-tight">
+              Não precisamos reescrever o legado para
+              <span class="text-red-600">parar de perder dinheiro.</span>
+            </h3>
+            <div class="space-y-6 text-lg text-gray-700">
+              <p>
+                Hoje, o <span class="font-semibold">GeneXus 9</span> impõe
+                limites que resultam em multas contratuais e um ciclo infinito
+                de refação em testes manuais. Reescrever o sistema seria
+                inviável, mas ignorar o custo das falhas é perigoso.
+              </p>
+              <p
+                class="border-l-4 border-red-600 pl-6 italic bg-gray-50 py-4 rounded-r-2xl"
+              >
+                "Nossa proposta é encapsular o legado com uma camada de
+                inteligência externa."
+              </p>
+              <p>
+                O Playwright testa externamente, a IA corrige os fluxos e
+                automatiza a burocracia. Com isso, geramos um impacto
+                significativo ao fim das regressões, das multas e geramos
+                entregas com evidências visuais automáticas para o cliente.
+              </p>
+            </div>
+            <div class="mt-10">
+              <a
+                href="#solucoes"
+                class="inline-block px-8 py-4 bg-red-600 text-white font-bold rounded-xl shadow-lg hover:bg-black transition-all transform hover:-translate-y-1"
+              >
+                Ver Fluxo de Automação
+              </a>
+            </div>
+          </div>
+          <div class="lg:w-1/2 relative" data-aos="fade-left">
+            <div
+              class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-black mb-6 transform -rotate-2 hover:rotate-0 transition duration-300"
+            >
+              <div class="flex items-center gap-4 mb-2">
+                <span class="text-2xl">⚠️</span>
+                <h4 class="font-bold text-gray-800">Cenário Atual</h4>
+              </div>
+              <ul class="text-sm text-gray-600 space-y-2">
+                <li>• Multas contratuais por bugs em produção.</li>
+                <li>• Testes manuais lentos e repetitivos.</li>
+                <li>• Limitação técnica do legado (GX9).</li>
+              </ul>
+            </div>
+            <div
+              class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-red-600 ml-8 transform rotate-2 hover:rotate-0 transition duration-300"
+            >
+              <div class="flex items-center gap-4 mb-2">
+                <span class="text-2xl">🛡️</span>
+                <h4 class="font-bold text-gray-800">Com a Camada de IA</h4>
+              </div>
+              <ul class="text-sm text-gray-600 space-y-2">
+                <li>• Regressão 100% automatizada.</li>
+                <li>• Notas de atualização com evidências visuais.</li>
+                <li>• Aumento da confiança.</li>
+              </ul>
+            </div>
+            <div
+              class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-red-600 opacity-5 blur-3xl rounded-full"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="solucoes" class="py-24 px-6 bg-white relative">
+      <div
+        class="absolute top-0 left-0 w-64 h-64 bg-red-50 rounded-full blur-3xl opacity-50 -z-10"
+      ></div>
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tighter"
+          >
+            Etapas da <span class="text-red-600">Solução</span>
+          </h2>
+          <p class="mt-4 text-gray-600 font-medium">
+            O caminho da automação: da coleta de dados à sincronização final.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+          <div class="md:col-span-7 space-y-6">
+            <div
+              class="group flex flex-col md:flex-row gap-6 items-center bg-gray-50 p-8 rounded-[2rem] border border-transparent hover:border-red-200 hover:bg-white hover:shadow-xl transition-all duration-500"
+              data-aos="fade-right"
+            >
+              <div
+                class="bg-red-600 text-white w-16 h-16 rounded-2xl text-2xl font-black flex items-center justify-center shrink-0 shadow-lg shadow-red-600/20 group-hover:rotate-6 transition-transform"
+              >
+                01
+              </div>
+              <div class="flex-1 text-center md:text-left">
+                <h3
+                  class="text-xl font-bold mb-2 uppercase tracking-tight text-gray-900 group-hover:text-red-600 transition-colors"
+                >
+                  Geração de Casos de Teste
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Ações inteligentes integradas ao
+                  <span class="font-semibold text-gray-900">Azure DevOps</span>
+                  que coletam dados do PBI para gerar descrições e roteiros de
+                  teste automáticos.
+                </p>
+              </div>
+            </div>
+            <div
+              class="group flex flex-col md:flex-row gap-6 items-center bg-gray-50 p-8 rounded-[2rem] border border-transparent hover:border-red-200 hover:bg-white hover:shadow-xl transition-all duration-500"
+              data-aos="fade-right"
+              data-aos-delay="100"
+            >
+              <div
+                class="bg-red-600 text-white w-16 h-16 rounded-2xl text-2xl font-black flex items-center justify-center shrink-0 shadow-lg shadow-red-600/20 group-hover:rotate-6 transition-transform"
+              >
+                02
+              </div>
+              <div class="flex-1 text-center md:text-left">
+                <h3
+                  class="text-xl font-bold mb-2 uppercase tracking-tight text-gray-900 group-hover:text-red-600 transition-colors"
+                >
+                  MOCK Inteligente
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Geração instantânea e segura de
+                  <span class="font-semibold text-gray-900"
+                    >massa de dados (JSON/XML)</span
+                  >
+                  para APIs, garantindo conformidade total e velocidade de
+                  execução.
+                </p>
+              </div>
+            </div>
+            <div
+              class="group flex flex-col md:flex-row gap-6 items-center bg-gray-50 p-8 rounded-[2rem] border border-transparent hover:border-red-200 hover:bg-white hover:shadow-xl transition-all duration-500"
+              data-aos="fade-right"
+              data-aos-delay="200"
+            >
+              <div
+                class="bg-red-600 text-white w-16 h-16 rounded-2xl text-2xl font-black flex items-center justify-center shrink-0 shadow-lg shadow-red-600/20 group-hover:rotate-6 transition-transform"
+              >
+                03
+              </div>
+              <div class="flex-1 text-center md:text-left">
+                <h3
+                  class="text-xl font-bold mb-2 uppercase tracking-tight text-gray-900 group-hover:text-red-600 transition-colors"
+                >
+                  Documentação Automática
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Sincronização em tempo real entre
+                  <span class="font-semibold text-gray-900"
+                    >Notion, Swagger e Azure</span
+                  >. Elimina a fragmentação e garante uma única fonte da
+                  verdade.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:block md:col-span-5" data-aos="fade-left">
+            <div class="relative group">
+              <div
+                class="absolute inset-0 bg-red-600 rounded-[2.5rem] opacity-0 group-hover:opacity-100 group-hover:translate-x-4 group-hover:translate-y-4 transition-all duration-700 -z-10 shadow-[0_0_50px_rgba(239,68,68,0.3)]"
+              ></div>
+              <div
+                class="relative rounded-[2.5rem] overflow-hidden border-4 border-white transition-transform duration-700 group-hover:scale-[1.01]"
+              >
+                <img
+                  src="https://cdn.gamma.app/xcbq7murwpjbdcp/92264cf69b0441368c216a562b17a405/optimized/post-1746721784503-543954741.avif"
+                  alt="Ilustração Arquitetura"
+                  class="w-full h-auto object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="release" class="py-24 px-6 bg-gray-900 text-white">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div data-aos="fade-right">
+            <h2 class="text-4xl font-bold mb-6">
+              Entrega de Valor: <span class="text-red-500">Release Notes</span>
+            </h2>
+            <p class="text-gray-400 mb-8 leading-relaxed">
+              Ao final de cada Sprint, a IA analisa os cards e gera comunicações
+              personalizadas, segmentando o que é melhoria geral do que é regra
+              específica por cliente.
+            </p>
+            <div class="space-y-4">
+              <div class="flex gap-4 items-center">
+                <div
+                  class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic font-bold"
+                >
+                  !
+                </div>
+                <p class="text-sm">
+                  Redução de churn através da percepção de evolução constante.
+                </p>
+              </div>
+              <div class="flex gap-4 items-center">
+                <div
+                  class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center italic font-bold"
+                >
+                  !
+                </div>
+                <p class="text-sm">
+                  Envio para fila de revisão humana para garantir tom de voz
+                  perfeito.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-white/5 p-8 rounded-3xl border border-white/10"
+            data-aos="fade-left"
+          >
+            <div class="text-center py-10">
+              <div
+                class="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4"
+              >
+                📄
+              </div>
+              <h4 class="text-2xl font-bold mb-2">99% de Economia</h4>
+              <p class="text-white">
+                De 4 horas de compilação manual para 2 minutos de geração
+                automática.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="arquitetura"
+      class="py-24 px-6 bg-black overflow-hidden relative text-white"
+    >
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-20" data-aos="fade-up">
+          <h2
+            class="text-4xl md:text-5xl font-bold mb-4 text-white tracking-tight"
+          >
+            Visão Geral da <span class="text-red-600">Arquitetura</span>
+          </h2>
+          <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+            Fluxo inteligente de orquestração entre intenção e ação.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <div class="relative group" data-aos="fade-right">
+            <div
+              class="bg-gray-900 p-8 rounded-[2rem] border border-gray-800 hover:border-red-600 transition-all duration-500 shadow-2xl h-full"
+            >
+              <div
+                class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center text-3xl mb-6"
+              >
+                📥
+              </div>
+              <h3 class="font-bold text-xl text-white mb-3">Input de Teste</h3>
+              <p class="text-gray-400 text-sm">
+                Passos detalhados ou prompts naturais.
+              </p>
+            </div>
+          </div>
+          <div class="relative group" data-aos="fade-up">
+            <div
+              class="bg-gray-800 p-8 rounded-[2rem] border border-red-600/30 shadow-2xl scale-105 z-10 h-full"
+            >
+              <div
+                class="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg shadow-red-600/20"
+              >
+                ⚙️
+              </div>
+              <h3 class="font-bold text-xl text-white mb-3">
+                Orquestração MCP
+              </h3>
+              <p class="text-gray-300 text-sm">
+                Roteamento inteligente e planejamento.
+              </p>
+            </div>
+          </div>
+          <div class="relative group" data-aos="fade-left">
+            <div
+              class="bg-gray-900 p-8 rounded-[2rem] border border-gray-800 hover:border-red-600 transition-all duration-500 shadow-2xl h-full"
+            >
+              <div
+                class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center text-3xl mb-6"
+              >
+                🎭
+              </div>
+              <h3 class="font-bold text-xl text-white mb-3">
+                Executor Playwright
+              </h3>
+              <p class="text-gray-400 text-sm">Automação E2E robusta.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-16 text-center">
+          <div
+            class="inline-flex bg-gray-900 px-8 py-4 rounded-full border border-gray-800"
+          >
+            <p class="text-gray-300 text-sm font-medium">
+              Validação em Tempo Real | Persistência | Aprendizado Contínuo
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="cenarios"
+      class="py-24 px-6 bg-gray-50 overflow-hidden relative"
+    >
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-4xl md:text-5xl font-bold mb-20 text-center tracking-tight text-gray-900"
+          data-aos="fade-up"
+        >
+          Dois Cenários de <span class="text-red-600">Operação</span>
+        </h2>
+        <div class="grid md:grid-cols-2 gap-10">
+          <div class="group relative" data-aos="fade-right">
+            <div
+              class="h-full bg-white p-10 rounded-[2.5rem] border border-gray-100 hover:border-black transition-all shadow-xl relative z-10 flex flex-col justify-between"
+            >
+              <div>
+                <div class="flex items-center gap-5 mb-8">
+                  <div
+                    class="w-16 h-16 bg-gray-100 text-gray-700 rounded-3xl flex items-center justify-center text-3xl group-hover:bg-black group-hover:text-white transition-colors"
+                  >
+                    🔧
+                  </div>
+                  <h3
+                    class="text-3xl font-black text-gray-900 tracking-tighter"
+                  >
+                    Teste<br />Determinístico
+                  </h3>
+                </div>
+                <p class="text-gray-700 mb-8 leading-relaxed">
+                  Velocidade e confiabilidade em fluxos conhecidos.
+                </p>
+              </div>
+              <div class="pt-6 border-t border-gray-100">
+                <span
+                  class="inline-flex items-center gap-2 bg-black text-white text-xs font-bold px-4 py-2 rounded-full tracking-wide"
+                  >Fluxos Críticos</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="group relative" data-aos="fade-left">
+            <div
+              class="h-full bg-white p-10 rounded-[2.5rem] border border-gray-100 hover:border-red-600 transition-all shadow-xl relative z-10 flex flex-col justify-between"
+            >
+              <div>
+                <div class="flex items-center gap-5 mb-8">
+                  <div
+                    class="w-16 h-16 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center text-3xl group-hover:bg-red-600 group-hover:text-white transition-colors"
+                  >
+                    🤖
+                  </div>
+                  <h3
+                    class="text-3xl font-black text-gray-900 tracking-tighter"
+                  >
+                    Teste<br />Semântico (IA)
+                  </h3>
+                </div>
+                <p class="text-gray-700 mb-8 leading-relaxed">
+                  Adaptação dinâmica baseada em intenção natural.
+                </p>
+              </div>
+              <div class="pt-6 border-t border-gray-100">
+                <span
+                  class="inline-flex items-center gap-2 bg-red-600 text-white text-xs font-bold px-4 py-2 rounded-full tracking-wide"
+                  >Cenários Complexos</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="fluxo-hibrido" class="py-24 px-6 bg-gray-100 overflow-hidden">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 tracking-tight">
-                    Fluxo Híbrido e <span class="text-red-600">Tomada de Decisão</span>
-                </h2>
-                <p class="text-lg text-gray-700 font-medium max-w-2xl mx-auto">Inteligência que prioriza a segurança operacional.</p>
-            </div>
-            <div class="relative space-y-8">
-                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-red-600 transform -translate-x-1/2 opacity-10"></div>
-                
-                <div class="relative flex flex-col md:flex-row items-center gap-8" data-aos="fade-right">
-                    <div class="md:w-1/2 md:text-right order-2 md:order-1">
-                        <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-gray-100 hover:border-red-600 transition-all duration-300">
-                            <h3 class="font-bold text-xl text-gray-900 mb-2">Cenário: Confiança Alta</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">Executa plano baseado no histórico consolidado do Drive.</p>
-                        </div>
-                    </div>
-                    <div class="relative z-10 w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg order-1 md:order-2 shrink-0 font-bold">01</div>
-                    <div class="md:w-1/2 order-3"></div>
-                </div>
-
-                <div class="relative flex flex-col md:flex-row items-center gap-8" data-aos="fade-left">
-                    <div class="md:w-1/2 order-1"></div>
-                    <div class="relative z-10 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center shadow-lg order-2 shrink-0 font-bold">02</div>
-                    <div class="md:w-1/2 order-3">
-                        <div class="bg-white p-8 rounded-[2rem] shadow-2xl border border-gray-100 hover:border-red-600 transition-all duration-300">
-                            <h3 class="font-bold text-xl text-gray-900 mb-2 italic">Contexto Novo ou Erro</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">Realiza fallback automático para o fluxo determinístico.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="relative flex flex-col md:flex-row items-center gap-8" data-aos="fade-right">
-                    <div class="md:w-1/2 md:text-right order-2 md:order-1">
-                        <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-gray-100 hover:border-red-600 transition-all duration-300">
-                            <h3 class="font-bold text-xl text-gray-900 mb-2">Persistência e Aprendizado</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">Alimenta a base de conhecimento no volume compartilhado.</p>
-                        </div>
-                    </div>
-                    <div class="relative z-10 w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg order-1 md:order-2 shrink-0 font-bold">03</div>
-                    <div class="md:w-1/2 order-3"></div>
-                </div>
-            </div>
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2
+            class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 tracking-tight"
+          >
+            Fluxo Híbrido e <span class="text-red-600">Tomada de Decisão</span>
+          </h2>
+          <p class="text-lg text-gray-700 font-medium max-w-2xl mx-auto">
+            Inteligência que prioriza a segurança operacional.
+          </p>
         </div>
-    </section>
+        <div class="relative space-y-8">
+          <div
+            class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-red-600 transform -translate-x-1/2 opacity-10"
+          ></div>
 
-    <section id="persistencia" class="py-24 px-6 bg-white overflow-hidden">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 tracking-tight">
-                    Modelo de <span class="text-red-600">Persistência</span>
-                </h2>
-                <p class="text-lg text-gray-600 font-medium">Volume Compartilhado: Estrutura centralizada de conhecimento.</p>
+          <div
+            class="relative flex flex-col md:flex-row items-center gap-8"
+            data-aos="fade-right"
+          >
+            <div class="md:w-1/2 md:text-right order-2 md:order-1">
+              <div
+                class="bg-white p-8 rounded-[2rem] shadow-xl border border-gray-100 hover:border-red-600 transition-all duration-300"
+              >
+                <h3 class="font-bold text-xl text-gray-900 mb-2">
+                  Cenário: Confiança Alta
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Executa plano baseado no histórico consolidado do Drive.
+                </p>
+              </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <div class="group relative" data-aos="fade-right">
-                    <div class="bg-gray-50 p-8 rounded-[2rem] shadow-xl border-b-4 border-black hover:border-red-600 transition-all h-full">
-                        <div class="flex items-center gap-5">
-                            <div class="w-14 h-14 bg-white text-black rounded-2xl flex items-center justify-center text-2xl group-hover:bg-red-600 group-hover:text-white transition-all">📝</div>
-                            <div>
-                                <h3 class="font-bold text-xl text-gray-800">Execução & Logs</h3>
-                                <p class="text-sm text-gray-600">Arquivos JSON com status e versionamento.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="group relative" data-aos="fade-left">
-                    <div class="bg-gray-50 p-8 rounded-[2rem] shadow-xl border-b-4 border-black hover:border-red-600 transition-all h-full">
-                        <div class="flex items-center gap-5">
-                            <div class="w-14 h-14 bg-white text-black rounded-2xl flex items-center justify-center text-2xl group-hover:bg-red-600 group-hover:text-white transition-all">🧠</div>
-                            <div>
-                                <h3 class="font-bold text-xl text-gray-800">Base de Conhecimento</h3>
-                                <p class="text-sm text-gray-600">Mapeamento inteligente de seletores.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div
+              class="relative z-10 w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg order-1 md:order-2 shrink-0 font-bold"
+            >
+              01
             </div>
-            <div class="relative bg-black text-white rounded-[2rem] p-10 shadow-lg flex flex-col md:flex-row items-center gap-8" data-aos="fade-up">
-                <div class="w-20 h-20 bg-red-600 text-white rounded-full flex items-center justify-center text-4xl shadow-lg shrink-0">💡</div>
-                <p class="text-gray-300 leading-relaxed text-lg">O diferencial é a <span class="text-red-500 font-bold">persistência centralizada</span>. Acesso offline e independente de sincronização em tempo real.</p>
+            <div class="md:w-1/2 order-3"></div>
+          </div>
+
+          <div
+            class="relative flex flex-col md:flex-row items-center gap-8"
+            data-aos="fade-left"
+          >
+            <div class="md:w-1/2 order-1"></div>
+            <div
+              class="relative z-10 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center shadow-lg order-2 shrink-0 font-bold"
+            >
+              02
             </div>
+            <div class="md:w-1/2 order-3">
+              <div
+                class="bg-white p-8 rounded-[2rem] shadow-2xl border border-gray-100 hover:border-red-600 transition-all duration-300"
+              >
+                <h3 class="font-bold text-xl text-gray-900 mb-2 italic">
+                  Contexto Novo ou Erro
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Realiza fallback automático para o fluxo determinístico.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="relative flex flex-col md:flex-row items-center gap-8"
+            data-aos="fade-right"
+          >
+            <div class="md:w-1/2 md:text-right order-2 md:order-1">
+              <div
+                class="bg-white p-8 rounded-[2rem] shadow-xl border border-gray-100 hover:border-red-600 transition-all duration-300"
+              >
+                <h3 class="font-bold text-xl text-gray-900 mb-2">
+                  Persistência e Aprendizado
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Alimenta a base de conhecimento no volume compartilhado.
+                </p>
+              </div>
+            </div>
+            <div
+              class="relative z-10 w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg order-1 md:order-2 shrink-0 font-bold"
+            >
+              03
+            </div>
+            <div class="md:w-1/2 order-3"></div>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="diagrama" class="py-24 px-6 bg-gray-100 overflow-hidden">
-    <div class="max-w-7xl mx-auto">
-        <h2 class="text-4xl md:text-5xl font-bold mb-20 text-center text-gray-900 tracking-tight">
-            Fluxo Inteligente do Processo
+      <div class="max-w-7xl mx-auto">
+        <h2
+          class="text-4xl md:text-5xl font-bold mb-20 text-center text-gray-900 tracking-tight"
+        >
+          Fluxo Inteligente do Processo
         </h2>
 
         <div class="relative">
-            <div class="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-border-red-600 via-red-400 to-red-500 transform -translate-y-1/2 opacity-20"></div>
+          <div
+            class="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-border-red-600 via-red-400 to-red-500 transform -translate-y-1/2 opacity-20"
+          ></div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 relative z-10">
-                
-                <div class="group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-red-600 h-full transform hover:-translate-y-2">
-                        <div class="w-12 h-12 bg-gray-100 text-red-600 rounded-2xl flex items-center justify-center mb-4 font-bold text-xl group-hover:scale-110 transition-transform">01</div>
-                        <h3 class="font-bold text-gray-800 mb-2 italic">Entrada de Dados</h3>
-                        <p class="text-sm text-gray-600">Descrição base de negócio da Feature vinda do Azure.</p>
-                    </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 relative z-10"
+          >
+            <div class="group" data-aos="fade-up" data-aos-delay="100">
+              <div
+                class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-red-600 h-full transform hover:-translate-y-2"
+              >
+                <div
+                  class="w-12 h-12 bg-gray-100 text-red-600 rounded-2xl flex items-center justify-center mb-4 font-bold text-xl group-hover:scale-110 transition-transform"
+                >
+                  01
                 </div>
-
-                <div class="group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bg-red-50 p-6 rounded-3xl shadow-lg border-2 border-dashed border-red-300 h-full relative overflow-hidden">
-                        <span class="absolute top-4 right-4 bg-red-600 text-white text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-widest animate-pulse">AI Agent</span>
-                        <div class="w-12 h-12 bg-red-600 text-white rounded-2xl flex items-center justify-center mb-4 shadow-lg"><i class="fas fa-robot"></i> 🤖</div>
-                        <h3 class="font-bold text-red-900 mb-2">Geração de PBI</h3>
-                        <p class="text-sm text-red-800/80">IA cria Critérios de Aceitação baseados na Feature automaticamente.</p>
-                    </div>
-                </div>
-
-                <div class="group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-red-600 h-full transform hover:-translate-y-2">
-                        <div class="w-12 h-12 bg-gray-100 text-gray-600 rounded-2xl flex items-center justify-center mb-4"><i class="fas fa-user-check"></i> 👤</div>
-                        <h3 class="font-bold text-gray-800 mb-2">Review Humano</h3>
-                        <p class="text-sm text-gray-600">Usuário valida, ajusta e confirma os dados gerados pela IA.</p>
-                    </div>
-                </div>
-
-                <div class="group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="bg-red-50 p-6 rounded-3xl shadow-lg border-2 border-dashed border-red-300 h-full relative overflow-hidden">
-                        <span class="absolute top-4 right-4 bg-red-600 text-white text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-widest animate-pulse">AI Agent</span>
-                        <div class="w-12 h-12 bg-red-600 text-white rounded-2xl flex items-center justify-center mb-4 shadow-lg">⚡</div>
-                        <h3 class="font-bold text-red-900 mb-2">Casos de Teste</h3>
-                        <p class="text-sm text-red-800/80">IA lê as instruções do Dev e cria os scripts Playwright prontos.</p>
-                    </div>
-                </div>
-
-                <div class="group" data-aos="fade-up" data-aos-delay="500">
-                    <div class="bg-gradient-to-br from-red-500 to-red-600 p-6 rounded-3xl shadow-xl h-full text-white transform hover:scale-105 transition-all">
-                        <div class="w-12 h-12 bg-white/20 backdrop-blur-md text-white rounded-2xl flex items-center justify-center mb-4 text-xl">✅</div>
-                        <h3 class="font-bold mb-2 uppercase">Finalização</h3>
-                        <p class="text-sm text-white/90">Sincronização via API para Azure, Notion e Swagger concluída.</p>
-                    </div>
-                </div>
-
+                <h3 class="font-bold text-gray-800 mb-2 italic">
+                  Entrada de Dados
+                </h3>
+                <p class="text-sm text-gray-600">
+                  Descrição base de negócio da Feature vinda do Azure.
+                </p>
+              </div>
             </div>
+
+            <div class="group" data-aos="fade-up" data-aos-delay="200">
+              <div
+                class="bg-red-50 p-6 rounded-3xl shadow-lg border-2 border-dashed border-red-300 h-full relative overflow-hidden"
+              >
+                <span
+                  class="absolute top-4 right-4 bg-red-600 text-white text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-widest animate-pulse"
+                  >AI Agent</span
+                >
+                <div
+                  class="w-12 h-12 bg-red-600 text-white rounded-2xl flex items-center justify-center mb-4 shadow-lg"
+                >
+                  <i class="fas fa-robot"></i> 🤖
+                </div>
+                <h3 class="font-bold text-red-900 mb-2">Geração de PBI</h3>
+                <p class="text-sm text-red-800/80">
+                  IA cria Critérios de Aceitação baseados na Feature
+                  automaticamente.
+                </p>
+              </div>
+            </div>
+
+            <div class="group" data-aos="fade-up" data-aos-delay="300">
+              <div
+                class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-red-600 h-full transform hover:-translate-y-2"
+              >
+                <div
+                  class="w-12 h-12 bg-gray-100 text-gray-600 rounded-2xl flex items-center justify-center mb-4"
+                >
+                  <i class="fas fa-user-check"></i> 👤
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Review Humano</h3>
+                <p class="text-sm text-gray-600">
+                  Usuário valida, ajusta e confirma os dados gerados pela IA.
+                </p>
+              </div>
+            </div>
+
+            <div class="group" data-aos="fade-up" data-aos-delay="400">
+              <div
+                class="bg-red-50 p-6 rounded-3xl shadow-lg border-2 border-dashed border-red-300 h-full relative overflow-hidden"
+              >
+                <span
+                  class="absolute top-4 right-4 bg-red-600 text-white text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-widest animate-pulse"
+                  >AI Agent</span
+                >
+                <div
+                  class="w-12 h-12 bg-red-600 text-white rounded-2xl flex items-center justify-center mb-4 shadow-lg"
+                >
+                  ⚡
+                </div>
+                <h3 class="font-bold text-red-900 mb-2">Casos de Teste</h3>
+                <p class="text-sm text-red-800/80">
+                  IA lê as instruções do Dev e cria os scripts Playwright
+                  prontos.
+                </p>
+              </div>
+            </div>
+
+            <div class="group" data-aos="fade-up" data-aos-delay="500">
+              <div
+                class="bg-gradient-to-br from-red-500 to-red-600 p-6 rounded-3xl shadow-xl h-full text-white transform hover:scale-105 transition-all"
+              >
+                <div
+                  class="w-12 h-12 bg-white/20 backdrop-blur-md text-white rounded-2xl flex items-center justify-center mb-4 text-xl"
+                >
+                  ✅
+                </div>
+                <h3 class="font-bold mb-2 uppercase">Finalização</h3>
+                <p class="text-sm text-white/90">
+                  Sincronização via API para Azure, Notion e Swagger concluída.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-    <section id="ciclo-playwright" class="py-24 px-6 bg-gray-50 overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 tracking-tight">Ciclo de Execução Playwright</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto text-lg">MCP e ML garantindo estabilidade e resiliência.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="group" data-aos="zoom-in">
-                    <div class="h-full bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:border-red-600 transition-all">
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center text-2xl">🔍</div>
-                            <span class="text-4xl font-black text-gray-200 group-hover:text-red-100">01</span>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-3 tracking-tighter uppercase">Smart Locators</h4>
-                        <p class="text-gray-600 text-sm">Identificação via role ou test-id, ignorando IDs dinâmicos do GX9.</p>
-                    </div>
-                </div>
-                <div class="group" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="h-full bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:border-red-600 transition-all">
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center text-2xl">⚡</div>
-                            <span class="text-4xl font-black text-gray-200 group-hover:text-red-100">02</span>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-3 tracking-tighter uppercase">Paralelismo</h4>
-                        <p class="text-gray-600 text-sm">Execução multi-browser com auto-waiting nativo.</p>
-                    </div>
-                </div>
-                <div class="group" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="h-full bg-black p-8 rounded-[2.5rem] shadow-2xl transform lg:-translate-y-4">
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center text-2xl">🧠</div>
-                            <span class="text-4xl font-black text-white opacity-20">03</span>
-                        </div>
-                        <h4 class="text-xl font-bold text-white mb-3 tracking-tighter uppercase">Self-Healing</h4>
-                        <p class="text-gray-400 text-sm">IA sugere correções em tempo real ao detectar mudanças de UI.</p>
-                    </div>
-                </div>
-                <div class="group" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="h-full bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:border-red-600 transition-all">
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center text-2xl">📸</div>
-                            <span class="text-4xl font-black text-gray-200 group-hover:text-red-100">04</span>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-3 tracking-tighter uppercase">Evidências</h4>
-                        <p class="text-gray-600 text-sm">Trace Viewer com vídeos e logs anexados ao Azure DevOps.</p>
-                    </div>
-                </div>
-            </div>
+    <section
+      id="ciclo-playwright"
+      class="py-24 px-6 bg-gray-50 overflow-hidden"
+    >
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2
+            class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 tracking-tight"
+          >
+            Ciclo de Execução Playwright
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            MCP e ML garantindo estabilidade e resiliência.
+          </p>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="group" data-aos="zoom-in">
+            <div
+              class="h-full bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:border-red-600 transition-all"
+            >
+              <div class="flex justify-between items-start mb-6">
+                <div
+                  class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center text-2xl"
+                >
+                  🔍
+                </div>
+                <span
+                  class="text-4xl font-black text-gray-200 group-hover:text-red-100"
+                  >01</span
+                >
+              </div>
+              <h4
+                class="text-xl font-bold text-gray-800 mb-3 tracking-tighter uppercase"
+              >
+                Smart Locators
+              </h4>
+              <p class="text-gray-600 text-sm">
+                Identificação via role ou test-id, ignorando IDs dinâmicos do
+                GX9.
+              </p>
+            </div>
+          </div>
+          <div class="group" data-aos="zoom-in" data-aos-delay="100">
+            <div
+              class="h-full bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:border-red-600 transition-all"
+            >
+              <div class="flex justify-between items-start mb-6">
+                <div
+                  class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center text-2xl"
+                >
+                  ⚡
+                </div>
+                <span
+                  class="text-4xl font-black text-gray-200 group-hover:text-red-100"
+                  >02</span
+                >
+              </div>
+              <h4
+                class="text-xl font-bold text-gray-800 mb-3 tracking-tighter uppercase"
+              >
+                Paralelismo
+              </h4>
+              <p class="text-gray-600 text-sm">
+                Execução multi-browser com auto-waiting nativo.
+              </p>
+            </div>
+          </div>
+          <div class="group" data-aos="zoom-in" data-aos-delay="200">
+            <div
+              class="h-full bg-black p-8 rounded-[2.5rem] shadow-2xl transform lg:-translate-y-4"
+            >
+              <div class="flex justify-between items-start mb-6">
+                <div
+                  class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center text-2xl"
+                >
+                  🧠
+                </div>
+                <span class="text-4xl font-black text-white opacity-20"
+                  >03</span
+                >
+              </div>
+              <h4
+                class="text-xl font-bold text-white mb-3 tracking-tighter uppercase"
+              >
+                Self-Healing
+              </h4>
+              <p class="text-gray-400 text-sm">
+                IA sugere correções em tempo real ao detectar mudanças de UI.
+              </p>
+            </div>
+          </div>
+          <div class="group" data-aos="zoom-in" data-aos-delay="300">
+            <div
+              class="h-full bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:border-red-600 transition-all"
+            >
+              <div class="flex justify-between items-start mb-6">
+                <div
+                  class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center text-2xl"
+                >
+                  📸
+                </div>
+                <span
+                  class="text-4xl font-black text-gray-200 group-hover:text-red-100"
+                  >04</span
+                >
+              </div>
+              <h4
+                class="text-xl font-bold text-gray-800 mb-3 tracking-tighter uppercase"
+              >
+                Evidências
+              </h4>
+              <p class="text-gray-600 text-sm">
+                Trace Viewer com vídeos e logs anexados ao Azure DevOps.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="roi" class="py-24 px-6 bg-white overflow-hidden">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-20" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 tracking-tight">Retorno <span class="text-red-600">(ROI)</span></h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto italic">Payback projetado entre 3 a 6 meses.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-                <div class="group bg-gray-50 p-8 rounded-3xl border-b-8 border-black text-center transition-all hover:-translate-y-2">
-                    <h3 class="font-bold text-gray-800 mb-4 uppercase text-xs tracking-widest">Geração de Testes</h3>
-                    <p class="text-6xl font-black text-red-600">87%</p>
-                </div>
-                <div class="group bg-gray-50 p-8 rounded-3xl border-b-8 border-red-600 text-center transition-all hover:-translate-y-2">
-                    <h3 class="font-bold text-gray-800 mb-4 uppercase text-xs tracking-widest">MOCK Inteligente</h3>
-                    <p class="text-6xl font-black text-red-600">99%</p>
-                </div>
-                <div class="group bg-gray-50 p-8 rounded-3xl border-b-8 border-black text-center transition-all hover:-translate-y-2">
-                    <h3 class="font-bold text-gray-800 mb-4 uppercase text-xs tracking-widest">Testes E2E</h3>
-                    <p class="text-6xl font-black text-red-600">95%</p>
-                </div>
-                <div class="group bg-gray-50 p-8 rounded-3xl border-b-8 border-red-600 text-center transition-all hover:-translate-y-2">
-                    <h3 class="font-bold text-gray-800 mb-4 uppercase text-xs tracking-widest">Release Notes</h3>
-                    <p class="text-6xl font-black text-red-600">99%</p>
-                </div>
-            </div>
-
-            <div class="bg-gray-900 text-white p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden" data-aos="fade-up">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-red-600/30 blur-3xl rounded-full"></div>
-                <div class="relative z-10">
-                    <h4 class="text-2xl font-bold mb-6 tracking-tight uppercase tracking-widest">Fundamentação de Dados</h4>
-                    <div class="grid md:grid-cols-3 gap-10 text-sm text-gray-400">
-                        <div class="border-l-2 border-red-600 pl-4">
-                            <strong class="text-white block mb-2">Relatório Gartner</strong>
-                            AI-Augmented Testing reduz esforço em 80% em dívidas técnicas.
-                        </div>
-                        <div class="border-l-2 border-red-600 pl-4">
-                            <strong class="text-white block mb-2">Microsoft Telemetry</strong>
-                            Auto-waiting reduz tempo de depuração em 95%.
-                        </div>
-                        <div class="border-l-2 border-red-600 pl-4">
-                            <strong class="text-white block mb-2">Métricas Azure</strong>
-                            Automação via API elimina 12h semanais de burocracia.
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-20" data-aos="fade-up">
+          <h2
+            class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 tracking-tight"
+          >
+            Retorno <span class="text-red-600">(ROI)</span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto italic">
+            Payback projetado entre 3 a 6 meses.
+          </p>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+          <div
+            class="group bg-gray-50 p-8 rounded-3xl border-b-8 border-black text-center transition-all hover:-translate-y-2"
+          >
+            <h3
+              class="font-bold text-gray-800 mb-4 uppercase text-xs tracking-widest"
+            >
+              Geração de Testes
+            </h3>
+            <p class="text-6xl font-black text-red-600">87%</p>
+          </div>
+          <div
+            class="group bg-gray-50 p-8 rounded-3xl border-b-8 border-red-600 text-center transition-all hover:-translate-y-2"
+          >
+            <h3
+              class="font-bold text-gray-800 mb-4 uppercase text-xs tracking-widest"
+            >
+              MOCK Inteligente
+            </h3>
+            <p class="text-6xl font-black text-red-600">99%</p>
+          </div>
+          <div
+            class="group bg-gray-50 p-8 rounded-3xl border-b-8 border-black text-center transition-all hover:-translate-y-2"
+          >
+            <h3
+              class="font-bold text-gray-800 mb-4 uppercase text-xs tracking-widest"
+            >
+              Testes E2E
+            </h3>
+            <p class="text-6xl font-black text-red-600">95%</p>
+          </div>
+          <div
+            class="group bg-gray-50 p-8 rounded-3xl border-b-8 border-red-600 text-center transition-all hover:-translate-y-2"
+          >
+            <h3
+              class="font-bold text-gray-800 mb-4 uppercase text-xs tracking-widest"
+            >
+              Release Notes
+            </h3>
+            <p class="text-6xl font-black text-red-600">99%</p>
+          </div>
+        </div>
+
+        <div
+          class="bg-gray-900 text-white p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden"
+          data-aos="fade-up"
+        >
+          <div
+            class="absolute top-0 right-0 w-32 h-32 bg-red-600/30 blur-3xl rounded-full"
+          ></div>
+          <div class="relative z-10">
+            <h4
+              class="text-2xl font-bold mb-6 tracking-tight uppercase tracking-widest"
+            >
+              Fundamentação de Dados
+            </h4>
+            <div class="grid md:grid-cols-3 gap-10 text-sm text-gray-400">
+              <div class="border-l-2 border-red-600 pl-4">
+                <strong class="text-white block mb-2">Relatório Gartner</strong>
+                AI-Augmented Testing reduz esforço em 80% em dívidas técnicas.
+              </div>
+              <div class="border-l-2 border-red-600 pl-4">
+                <strong class="text-white block mb-2"
+                  >Microsoft Telemetry</strong
+                >
+                Auto-waiting reduz tempo de depuração em 95%.
+              </div>
+              <div class="border-l-2 border-red-600 pl-4">
+                <strong class="text-white block mb-2">Métricas Azure</strong>
+                Automação via API elimina 12h semanais de burocracia.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer class="bg-gray-50 py-16 px-6 border-t border-gray-200">
-        <div class="max-w-6xl mx-auto text-center">
-            <img src="https://i.imgur.com/vE1EuBo.png" class="w-16 h-16 mx-auto mb-6 opacity-60">
-            <p class="font-bold text-gray-400 uppercase tracking-[0.3em] text-[10px]">QA Inteligente & Release Notes - 2026 - Siscobra Sistemas</p>
-        </div>
+      <div class="max-w-6xl mx-auto text-center">
+        <img
+          src="https://raichu-uploads.s3.amazonaws.com/logo_siscobra-ltda_3SsjdB.jpg"
+          class="w-16 h-16 mx-auto mb-6 opacity-60 rounded-full"
+        />
+        <p
+          class="font-bold text-gray-400 uppercase tracking-[0.3em] text-[10px]"
+        >
+          QA Inteligente & Release Notes - 2026 - Siscobra Sistemas
+        </p>
+      </div>
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
-        
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
-            });
+      AOS.init({ duration: 800, once: true });
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) target.scrollIntoView({ behavior: "smooth" });
         });
+      });
     </script>
-</body>
+  </body>
 </html>
